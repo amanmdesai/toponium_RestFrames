@@ -30,7 +30,7 @@ using namespace std;
 using namespace RestFrames;
 
 void example_N_Wlnu(){
-  std::string output_name = "ttbar_reco.root";
+  std::string output_name = "toponium_reco.root";
 
   Int_t           numParticles;
   Float_t         eventweight;
@@ -43,7 +43,7 @@ void example_N_Wlnu(){
   vector<float>   *mass= new vector<float>;
   vector<float>   *spin= new vector<float>;
 
-  TFile *f1 = new TFile("ttbar.root","read");
+  TFile *f1 = new TFile("toponium.root","read");
   TTree *tree = (TTree*)f1->Get("events");
 
   tree->SetBranchAddress("numParticles", &numParticles);
@@ -394,8 +394,8 @@ void example_N_Wlnu(){
     const HistPlotCategory& cat_R3  = histPlot->GetNewCategory("Reco3", "min #Sigma M_{top}^{ 2} Reco");
     const HistPlotCategory& cat_R4  = histPlot->GetNewCategory("Reco4", "min #Delta M_{top} Reco");
   
-    const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
-    const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}} / m_{t #bar{t}}", 0., 4.);
+    const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 2.);
+    const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}} / m_{t #bar{t}}", 0., 2.);
     const HistPlotVar& Eb_ta  = histPlot->GetNewVar("Eb_ta", "E_{b a}^{top a} / E_{b a}^{top a gen}", 0., 2.);
     const HistPlotVar& Eb_tb  = histPlot->GetNewVar("Eb_tb", "E_{b b}^{top b} / E_{b b}^{top b gen}", 0., 2.);
     const HistPlotVar& El_Wa  = histPlot->GetNewVar("El_Wa", "E_{#it{l} a}^{W a} / E_{#it{l} a}^{W a gen}", 0., 2.);
@@ -424,20 +424,20 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Dcosta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(DcosWa, cat_R1+cat_R2+cat_R3+cat_R4);
   
-    histPlot->AddPlot(Meta, Eb_ta, cat_R1);
-    histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
-    histPlot->AddPlot(Mtt, El_Wa, cat_R1);
-    histPlot->AddPlot(Eb_ta, Eb_tb, cat_R1);
-    histPlot->AddPlot(El_Wa, El_Wb, cat_R1);
-    histPlot->AddPlot(Eb_ta, El_Wa, cat_R1);
-    histPlot->AddPlot(Eb_ta, El_Wb, cat_R1);
-    histPlot->AddPlot(Dcostt, Mtt,  cat_R1);
-    histPlot->AddPlot(Dcosta, Eb_ta, cat_R1);
-    histPlot->AddPlot(DcosWa, El_Wa, cat_R1);
-    histPlot->AddPlot(Dcostt, Dcosta, cat_R1);
-    histPlot->AddPlot(Dcosta, Dcostb, cat_R1);
-    histPlot->AddPlot(DcosWa, DcosWb, cat_R1);
-    histPlot->AddPlot(Dcosta, DcosWa, cat_R1);
+    histPlot->AddPlot(Meta, Eb_ta, cat_R4);
+    histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
+    histPlot->AddPlot(Mtt, El_Wa, cat_R4);
+    histPlot->AddPlot(Eb_ta, Eb_tb, cat_R4);
+    histPlot->AddPlot(El_Wa, El_Wb, cat_R4);
+    histPlot->AddPlot(Eb_ta, El_Wa, cat_R4);
+    histPlot->AddPlot(Eb_ta, El_Wb, cat_R4);
+    histPlot->AddPlot(Dcostt, Mtt,  cat_R4);
+    histPlot->AddPlot(Dcosta, Eb_ta, cat_R4);
+    histPlot->AddPlot(DcosWa, El_Wa, cat_R4);
+    histPlot->AddPlot(Dcostt, Dcosta, cat_R4);
+    histPlot->AddPlot(Dcosta, Dcostb, cat_R4);
+    histPlot->AddPlot(DcosWa, DcosWb, cat_R4);
+    histPlot->AddPlot(Dcosta, DcosWa, cat_R4);
 
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -522,7 +522,6 @@ void example_N_Wlnu(){
     if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
     
     //cout << mTopo << endl;
-    if(mTopo <= 0.){mTopo = mH;};
 
     LAB_Gen.InitializeAnalysis();
 

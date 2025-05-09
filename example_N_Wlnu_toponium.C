@@ -30,7 +30,7 @@ using namespace std;
 using namespace RestFrames;
 
 void example_N_Wlnu(){
-  std::string output_name = "ttbar_reco.root";
+  std::string output_name = "toponium_reco.root";
 
   Int_t           numParticles;
   Float_t         eventweight;
@@ -43,7 +43,7 @@ void example_N_Wlnu(){
   vector<float>   *mass= new vector<float>;
   vector<float>   *spin= new vector<float>;
 
-  TFile *f1 = new TFile("ttbar.root","read");
+  TFile *f1 = new TFile("toponium.root","read");
   TTree *tree = (TTree*)f1->Get("events");
 
   tree->SetBranchAddress("numParticles", &numParticles);
