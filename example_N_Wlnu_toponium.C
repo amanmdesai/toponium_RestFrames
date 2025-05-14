@@ -64,7 +64,7 @@ void example_N_Wlnu(){
   Int_t total_entries = tree->GetEntriesFast();
 
 
-  double mH = 346; 
+  double mH = 344; 
   double mT = 173; 
   double mW = 80.385;
   double mB = 4.18;
@@ -118,7 +118,7 @@ void example_N_Wlnu(){
     // Higgs mass
     TT_Gen.SetMass(mH);
     // set top masses
-    Ta_Gen.SetMass(mT);            Tb_Gen.SetMass(mT);
+    Ta_Gen.SetMass(mT);            Tb_Gen.SetMass(mT-2.);
     // set W masses
     Wa_Gen.SetMass(mW);            Wb_Gen.SetMass(mW);
     // set B masses
@@ -522,8 +522,10 @@ void example_N_Wlnu(){
     if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
     
     //cout << mTopo << endl;
-    if(mTopo <= 0.){mTopo = mH;};
-
+    //if(mTopo <= 0.){mTopo = mH;};
+    
+    mTopo = mH;
+    
     LAB_Gen.InitializeAnalysis();
 
     LAB_Gen.ClearEvent();                             // clear the gen tree
