@@ -30,8 +30,11 @@ using namespace std;
 using namespace RestFrames;
 
 void example_N_Wlnu(){
-  std::string output_name = "toponium_reco.root";
-  //std::string output_name = "ttbar_reco.root";
+  //std::string output_name = "toponium_reco.root";
+  //TFile *f1 = new TFile("toponium.root","read");
+
+  std::string output_name = "ttbar_reco.root";
+  TFile *f1 = new TFile("ttbar.root","read");
 
   Int_t           numParticles;
   Float_t         eventweight;
@@ -44,8 +47,6 @@ void example_N_Wlnu(){
   vector<float>   *mass= new vector<float>;
   vector<float>   *spin= new vector<float>;
 
-  TFile *f1 = new TFile("ttbar.root","read");
-  //TFile *f1 = new TFile("toponium.root","read");
   TTree *tree = (TTree*)f1->Get("events");
 
   tree->SetBranchAddress("numParticles", &numParticles);
@@ -710,13 +711,20 @@ void example_N_Wlnu(){
     treePlot->WriteOutput(output_name);
     g_Log << LogInfo << "Finished" << LogEnd;
 
+    TCanvas *c1= new TCanvas("","",800,600);
+    hist_toponium_mass->Draw("hist");
+    c1->SaveAs("toponiummass.pdf","PDF");
+
+    TCanvas *c2= new TCanvas("","",800,600);
+    hist_top_mass->Draw("hist");
+    c2->SaveAs("topmass.pdf","PDF");
+
+    TCanvas *c3= new TCanvas("","",800,600);
+    hist_antitop_mass->Draw("hist");
+    c3->SaveAs("antitopmass.pdf","PDF");
     
-    TCanvas *c= new TCanvas("","",800,600);
-    hist_toponium_mass->Draw();
-    hist_top_mass->Draw();
-    hist_antitop_mass->Draw();
-    c->SaveAs("mass.pdf","PDF");
-}
+
+  }
 
 # ifndef __CINT__ // main function for stand-alone compilation
 int main(){
