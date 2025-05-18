@@ -31,6 +31,7 @@ using namespace RestFrames;
 
 void example_N_Wlnu(){
   std::string output_name = "toponium_reco.root";
+  //std::string output_name = "ttbar_reco.root";
 
   Int_t           numParticles;
   Float_t         eventweight;
@@ -43,7 +44,8 @@ void example_N_Wlnu(){
   vector<float>   *mass= new vector<float>;
   vector<float>   *spin= new vector<float>;
 
-  TFile *f1 = new TFile("toponium.root","read");
+  TFile *f1 = new TFile("ttbar.root","read");
+  //TFile *f1 = new TFile("toponium.root","read");
   TTree *tree = (TTree*)f1->Get("events");
 
   tree->SetBranchAddress("numParticles", &numParticles);
@@ -58,7 +60,7 @@ void example_N_Wlnu(){
   tree->SetBranchAddress("spin", &spin);
 
   double lumi = 300; //in fb^-1 LHC RUN3 multiplied so that L dN = d\sigma
-  TLorentzVector lep1, lep2, b1, b2, MET;
+  TLorentzVector top, antitop, lep1, lep2, b1, b2, MET;
   TVector3 myMET;
 
   Int_t total_entries = tree->GetEntriesFast();
@@ -395,7 +397,7 @@ void example_N_Wlnu(){
     const HistPlotCategory& cat_R4  = histPlot->GetNewCategory("Reco4", "min #Delta M_{top} Reco");
   
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
-    const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}} / m_{t #bar{t}}", 0., 4.);
+    const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
     const HistPlotVar& Eb_ta  = histPlot->GetNewVar("Eb_ta", "E_{b a}^{top a} / E_{b a}^{top a gen}", 0., 2.);
     const HistPlotVar& Eb_tb  = histPlot->GetNewVar("Eb_tb", "E_{b b}^{top b} / E_{b b}^{top b gen}", 0., 2.);
     const HistPlotVar& El_Wa  = histPlot->GetNewVar("El_Wa", "E_{#it{l} a}^{W a} / E_{#it{l} a}^{W a gen}", 0., 2.);
@@ -439,6 +441,12 @@ void example_N_Wlnu(){
     histPlot->AddPlot(DcosWa, DcosWb, cat_R1);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R1);
 
+
+    // some hists
+
+    TH1 *hist_toponium_mass = new TH1D("mass","mass",200,0,1000);
+    TH1 *hist_top_mass = new TH1D("topmass","topmass",200,0,1000);
+    TH1 *hist_antitop_mass = new TH1D("antitopmass","antitopmass",200,0,1000);
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -450,6 +458,8 @@ void example_N_Wlnu(){
       //eventweight = cross_section*eventweight*lumi/totaleventweight;
       eventweight = eventweight*lumi;
 
+      top.SetPxPyPzE(0,0,0,0);
+      antitop.SetPxPyPzE(0,0,0,0);
       lep1.SetPxPyPzE(0,0,0,0);
       lep2.SetPxPyPzE(0,0,0,0);
       b1.SetPxPyPzE(0,0,0,0);
@@ -470,7 +480,18 @@ void example_N_Wlnu(){
         mTopo = mass->at(i);
       }
 
-        if(status->at(i) != +1){continue;} //considering only final state particles 
+        //truth tops
+        if(pid->at(i)==6){
+          top.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+        }
+
+        if(pid->at(i)==-6){
+          antitop.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+        }
+
+
+
+        if(status->at(i) == 1){ //considering only final state particles 
 
         //get first two leptons, b-jets, and missing momentum
         // MET
@@ -506,7 +527,7 @@ void example_N_Wlnu(){
                 b_index2= i;
             };
         }
-
+      }
 
     }//particle loop
     if(bjet_count < 2){continue;}
@@ -521,6 +542,10 @@ void example_N_Wlnu(){
     if(b1.Pt() < 20 || b2.Pt() < 20){continue;}
     if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
     
+    if(top.M() > 0 && antitop.M() > 0){
+    hist_toponium_mass->Fill((top+antitop).M());
+    hist_top_mass->Fill(top.M());
+    hist_antitop_mass->Fill(antitop.M());}
     //cout << mTopo << endl;
     //if(mTopo <= 0.){mTopo = mH;};
     
@@ -581,7 +606,7 @@ void example_N_Wlnu(){
     double cosWbgen = Wb_Gen.GetCosDecayAngle();
 
     Meta = TT_R1.GetMass()/mTopo;
-    Mtt = TT_R1.GetMass()/Mttgen;
+    Mtt = TT_R1.GetMass();
     // Mta = Ta_R1.GetMass();
     // Mtb = Tb_R1.GetMass();
     // MWa = Wa_R1.GetMass();
@@ -604,7 +629,7 @@ void example_N_Wlnu(){
     histPlot->Fill(cat_R1);
 
     Meta = TT_R2.GetMass()/mTopo;
-    Mtt = TT_R2.GetMass()/Mttgen;
+    Mtt = TT_R2.GetMass();
     // Mta = Ta_R2.GetMass();
     // Mtb = Tb_R2.GetMass();
     // MWa = Wa_R2.GetMass();
@@ -627,7 +652,7 @@ void example_N_Wlnu(){
     histPlot->Fill(cat_R2);
 
     Meta = TT_R3.GetMass()/mTopo;
-    Mtt = TT_R3.GetMass()/Mttgen;
+    Mtt = TT_R3.GetMass();
     // Mta = Ta_R3.GetMass();
     // Mtb = Tb_R3.GetMass();
     // MWa = Wa_R3.GetMass();
@@ -650,7 +675,7 @@ void example_N_Wlnu(){
     histPlot->Fill(cat_R3);
 
     Meta = TT_R4.GetMass()/mTopo;
-    Mtt = TT_R4.GetMass()/Mttgen;
+    Mtt = TT_R4.GetMass();
     // Mta = Ta_R4.GetMass();
     // Mtb = Tb_R4.GetMass();
     // MWa = Wa_R4.GetMass();
@@ -676,7 +701,6 @@ void example_N_Wlnu(){
     }//event loop
 
     histPlot->Draw();
-
     LAB_Gen.PrintGeneratorEfficiency();
   
     TFile fout(output_name.c_str(),"RECREATE");
@@ -684,9 +708,14 @@ void example_N_Wlnu(){
     histPlot->WriteOutput(output_name);
     histPlot->WriteHist(output_name);
     treePlot->WriteOutput(output_name);
-  
     g_Log << LogInfo << "Finished" << LogEnd;
-  
+
+    
+    TCanvas *c= new TCanvas("","",800,600);
+    hist_toponium_mass->Draw();
+    hist_top_mass->Draw();
+    hist_antitop_mass->Draw();
+    c->SaveAs("mass.pdf","PDF");
 }
 
 # ifndef __CINT__ // main function for stand-alone compilation

@@ -1,1 +1,4 @@
 results/
+.vscode
+__pycache*
+ttbar/
