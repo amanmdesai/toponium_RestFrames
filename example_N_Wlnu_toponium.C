@@ -409,6 +409,7 @@ void example_N_Wlnu(){
 
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
     const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
+    const HistPlotVar& Mll   = histPlot->GetNewVar("Mll", "M_{#it{l}_{a}#it{l}_{b}}", 0., 200.);
     const HistPlotVar& Eb_ta  = histPlot->GetNewVar("Eb_ta", "E_{b a}^{top a} / E_{b a}^{top a gen}", 0., 2.);
     const HistPlotVar& Eb_tb  = histPlot->GetNewVar("Eb_tb", "E_{b b}^{top b} / E_{b b}^{top b gen}", 0., 2.);
     const HistPlotVar& El_Wa  = histPlot->GetNewVar("El_Wa", "E_{#it{l} a}^{W a} / E_{#it{l} a}^{W a gen}", 0., 2.);
@@ -433,6 +434,7 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Mtb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Mll, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
 
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -690,6 +692,8 @@ void example_N_Wlnu(){
     Mtb = Tb_R1.GetMass();
     MWa = Wa_R1.GetMass();
     MWb = Wb_R1.GetMass();
+    Mll = (La_R1+Lb_R1).GetMass();
+
     if(Ta_R1.GetMass() > Tb_R1.GetMass()){
     MDt = Ta_R1.GetMass() - Tb_R1.GetMass();
     }
@@ -712,7 +716,7 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
     
-    D_phill = La_R1.GetFourVector(Ta_R1).Phi() - Lb_R1.GetFourVector(Tb_R1).Phi();
+    //D_phill = (La_R1 - Lb_R1).Phi(); // check this variable definition
 
     histPlot->Fill(cat_R1);
 
@@ -722,6 +726,7 @@ void example_N_Wlnu(){
     Mtb = Tb_R2.GetMass();
     MWa = Wa_R2.GetMass();
     MWb = Wb_R2.GetMass();
+    Mll = (La_R2+Lb_R2).GetMass();
 
     if(Ta_R2.GetMass() > Tb_R2.GetMass()){
     MDt = Ta_R2.GetMass() - Tb_R2.GetMass();
@@ -745,7 +750,7 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R2.GetFourVector(Ta_R2).Phi() - Lb_R2.GetFourVector(Tb_R2).Phi();
+    //D_phill = (La_R2 - Lb_R2).Phi(); // check this variable definition
 
     histPlot->Fill(cat_R2);
 
@@ -755,6 +760,7 @@ void example_N_Wlnu(){
     Mtb = Tb_R3.GetMass();
     MWa = Wa_R3.GetMass();
     MWb = Wb_R3.GetMass();
+    Mll = (La_R3+Lb_R3).GetMass();
 
     if(Ta_R3.GetMass() > Tb_R3.GetMass()){
     MDt = Ta_R3.GetMass() - Tb_R3.GetMass();
@@ -778,7 +784,7 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R3.GetFourVector(Ta_R3).Phi() - Lb_R3.GetFourVector(Tb_R3).Phi();
+    //D_phill = (La_R3 - Lb_R3).Phi(); // check this variable definition
 
     histPlot->Fill(cat_R3);
 
@@ -788,6 +794,7 @@ void example_N_Wlnu(){
     Mtb = Tb_R4.GetMass();
     MWa = Wa_R4.GetMass();
     MWb = Wb_R4.GetMass();
+    Mll = (La_R4+Lb_R4).GetMass();
 
 
     if(Ta_R4.GetMass() > Tb_R4.GetMass()){
@@ -812,7 +819,7 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R4.GetFourVector(Ta_R4).Phi() - Lb_R4.GetFourVector(Tb_R4).Phi();
+    //D_phill = (La_R4 - Lb_R4).Phi(); // check this variable definition
 
     histPlot->Fill(cat_R4);
   
