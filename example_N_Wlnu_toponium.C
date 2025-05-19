@@ -30,11 +30,12 @@ using namespace std;
 using namespace RestFrames;
 
 void example_N_Wlnu(){
-  //std::string output_name = "toponium_reco.root";
-  //TFile *f1 = new TFile("toponium.root","read");
 
-  std::string output_name = "ttbar_reco.root";
-  TFile *f1 = new TFile("ttbar.root","read");
+  //std::string sample = "ttbar";
+  std::string sample = "toponium";
+
+  std::string output_name = sample+"_reco.root";
+  TFile *f1 = new TFile((sample+".root").c_str(),"read");
 
   Int_t           numParticles;
   Float_t         eventweight;
@@ -397,6 +398,15 @@ void example_N_Wlnu(){
     const HistPlotCategory& cat_R3  = histPlot->GetNewCategory("Reco3", "min #Sigma M_{top}^{ 2} Reco");
     const HistPlotCategory& cat_R4  = histPlot->GetNewCategory("Reco4", "min #Delta M_{top} Reco");
   
+    const HistPlotVar& Mta    = histPlot->GetNewVar("Mta", "M_{ta}", 100., 200.);
+    const HistPlotVar& Mtb    = histPlot->GetNewVar("Mtb", "M_{tb}", 100., 200.);
+    const HistPlotVar& MWa    = histPlot->GetNewVar("MWa", "M_{Wa}", 50., 150.);
+    const HistPlotVar& MWb    = histPlot->GetNewVar("MWb", "M_{Wb}", 50., 150.);
+
+    const HistPlotVar& MDt    = histPlot->GetNewVar("MDt", "|M_{ta}-M_{tb}|", 0., 20.);
+    const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#theta_{#it{l}a} - #theta_{#it{l}b}", 
+       -acos(-1.)/2., acos(-1.)/2.);
+
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
     const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
     const HistPlotVar& Eb_ta  = histPlot->GetNewVar("Eb_ta", "E_{b a}^{top a} / E_{b a}^{top a gen}", 0., 2.);
@@ -418,8 +428,15 @@ void example_N_Wlnu(){
                 -acos(-1.)/2., acos(-1.)/2.);
     const HistPlotVar& DcosWb = histPlot->GetNewVar("DcosWb","#theta_{W b} - #theta_{W b}^{gen}", 
                 -acos(-1.)/2., acos(-1.)/2.);
-            
+
+    histPlot->AddPlot(Mta, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Mtb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
+
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(MDt, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mtt,   cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Eb_ta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(El_Wa, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -442,12 +459,60 @@ void example_N_Wlnu(){
     histPlot->AddPlot(DcosWa, DcosWb, cat_R1);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R1);
 
+    histPlot->AddPlot(Meta, Eb_ta, cat_R2);
+    histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
+    histPlot->AddPlot(Mtt, El_Wa, cat_R2);
+    histPlot->AddPlot(Eb_ta, Eb_tb, cat_R2);
+    histPlot->AddPlot(El_Wa, El_Wb, cat_R2);
+    histPlot->AddPlot(Eb_ta, El_Wa, cat_R2);
+    histPlot->AddPlot(Eb_ta, El_Wb, cat_R2);
+    histPlot->AddPlot(Dcostt, Mtt,  cat_R2);
+    histPlot->AddPlot(Dcosta, Eb_ta, cat_R2);
+    histPlot->AddPlot(DcosWa, El_Wa, cat_R2);
+    histPlot->AddPlot(Dcostt, Dcosta, cat_R2);
+    histPlot->AddPlot(Dcosta, Dcostb, cat_R2);
+    histPlot->AddPlot(DcosWa, DcosWb, cat_R2);
+    histPlot->AddPlot(Dcosta, DcosWa, cat_R2);
+
+    histPlot->AddPlot(Meta, Eb_ta, cat_R3);
+    histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
+    histPlot->AddPlot(Mtt, El_Wa, cat_R3);
+    histPlot->AddPlot(Eb_ta, Eb_tb, cat_R3);
+    histPlot->AddPlot(El_Wa, El_Wb, cat_R3);
+    histPlot->AddPlot(Eb_ta, El_Wa, cat_R3);
+    histPlot->AddPlot(Eb_ta, El_Wb, cat_R3);
+    histPlot->AddPlot(Dcostt, Mtt,  cat_R3);
+    histPlot->AddPlot(Dcosta, Eb_ta, cat_R3);
+    histPlot->AddPlot(DcosWa, El_Wa, cat_R3);
+    histPlot->AddPlot(Dcostt, Dcosta, cat_R3);
+    histPlot->AddPlot(Dcosta, Dcostb, cat_R3);
+    histPlot->AddPlot(DcosWa, DcosWb, cat_R3);
+    histPlot->AddPlot(Dcosta, DcosWa, cat_R3);
+
+    histPlot->AddPlot(Meta, Eb_ta, cat_R4);
+    histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
+    histPlot->AddPlot(Mtt, El_Wa, cat_R4);
+    histPlot->AddPlot(Eb_ta, Eb_tb, cat_R4);
+    histPlot->AddPlot(El_Wa, El_Wb, cat_R4);
+    histPlot->AddPlot(Eb_ta, El_Wa, cat_R4);
+    histPlot->AddPlot(Eb_ta, El_Wb, cat_R4);
+    histPlot->AddPlot(Dcostt, Mtt,  cat_R4);
+    histPlot->AddPlot(Dcosta, Eb_ta, cat_R4);
+    histPlot->AddPlot(DcosWa, El_Wa, cat_R4);
+    histPlot->AddPlot(Dcostt, Dcosta, cat_R4);
+    histPlot->AddPlot(Dcosta, Dcostb, cat_R4);
+    histPlot->AddPlot(DcosWa, DcosWb, cat_R4);
+    histPlot->AddPlot(Dcosta, DcosWa, cat_R4);
+
 
     // some hists
 
-    TH1 *hist_toponium_mass = new TH1D("mass","mass",200,0,1000);
-    TH1 *hist_top_mass = new TH1D("topmass","topmass",200,0,1000);
-    TH1 *hist_antitop_mass = new TH1D("antitopmass","antitopmass",200,0,1000);
+    TH1 *hist_toponium_mass = new TH1D("mass","mass",200,200,1000);
+    TH1 *hist_top_mass = new TH1D("heavy_top","heavy_top",50,100,200);
+    TH1 *hist_antitop_mass = new TH1D("light_top","light_top",50,100,200);
+    TH1 *hist_dilep_mass = new TH1D("hist_dilep_mass","hist_dilep_mass",50,0,200);
+    TH1 *hist_dilep_angle = new TH1D("hist_dilep_angle","hist_dilep_angle",50,-5,5);
+
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -489,7 +554,7 @@ void example_N_Wlnu(){
         if(pid->at(i)==-6){
           antitop.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
         }
-
+        // heavy and less heavy top differentiated later on
 
 
         if(status->at(i) == 1){ //considering only final state particles 
@@ -544,9 +609,22 @@ void example_N_Wlnu(){
     if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
     
     if(top.M() > 0 && antitop.M() > 0){
-    hist_toponium_mass->Fill((top+antitop).M());
-    hist_top_mass->Fill(top.M());
-    hist_antitop_mass->Fill(antitop.M());}
+      hist_toponium_mass->Fill((top+antitop).M());
+      if(top.M() > antitop.M())
+      {
+        hist_top_mass->Fill(top.M());
+        hist_antitop_mass->Fill(antitop.M());
+      }
+
+      else{
+      hist_top_mass->Fill(antitop.M());
+      hist_antitop_mass->Fill(top.M());
+      }
+    }
+    
+    hist_dilep_angle->Fill(lep1.Phi() -lep2.Phi());
+    hist_dilep_mass->Fill((lep1+lep2).M());
+    
     //cout << mTopo << endl;
     //if(mTopo <= 0.){mTopo = mH;};
     
@@ -608,10 +686,17 @@ void example_N_Wlnu(){
 
     Meta = TT_R1.GetMass()/mTopo;
     Mtt = TT_R1.GetMass();
-    // Mta = Ta_R1.GetMass();
-    // Mtb = Tb_R1.GetMass();
-    // MWa = Wa_R1.GetMass();
-    // MWb = Wb_R1.GetMass();
+    Mta = Ta_R1.GetMass();
+    Mtb = Tb_R1.GetMass();
+    MWa = Wa_R1.GetMass();
+    MWb = Wb_R1.GetMass();
+    if(Ta_R1.GetMass() > Tb_R1.GetMass()){
+    MDt = Ta_R1.GetMass() - Tb_R1.GetMass();
+    }
+    else{
+    MDt = Tb_R1.GetMass() - Ta_R1.GetMass();
+    }
+
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E()/Eb_tagen;
     Eb_tb = Bb_R1.GetFourVector(Tb_R1).E()/Eb_tbgen;
     El_Wa = La_R1.GetFourVector(Wa_R1).E()/El_Wagen;
@@ -626,15 +711,25 @@ void example_N_Wlnu(){
     Dcostb = asin(sqrt(1.-costb*costb)*costbgen-sqrt(1.-costbgen*costbgen)*costb);
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
+    
+    D_phill = La_R1.GetFourVector(Ta_R1).Phi() - Lb_R1.GetFourVector(Tb_R1).Phi();
 
     histPlot->Fill(cat_R1);
 
     Meta = TT_R2.GetMass()/mTopo;
     Mtt = TT_R2.GetMass();
-    // Mta = Ta_R2.GetMass();
-    // Mtb = Tb_R2.GetMass();
-    // MWa = Wa_R2.GetMass();
-    // MWb = Wb_R2.GetMass();
+    Mta = Ta_R2.GetMass();
+    Mtb = Tb_R2.GetMass();
+    MWa = Wa_R2.GetMass();
+    MWb = Wb_R2.GetMass();
+
+    if(Ta_R2.GetMass() > Tb_R2.GetMass()){
+    MDt = Ta_R2.GetMass() - Tb_R2.GetMass();
+    }
+    else{
+    MDt = Tb_R2.GetMass() - Ta_R2.GetMass();
+    }
+
     Eb_ta = Ba_R2.GetFourVector(Ta_R2).E()/Eb_tagen;
     Eb_tb = Bb_R2.GetFourVector(Tb_R2).E()/Eb_tbgen;
     El_Wa = La_R2.GetFourVector(Wa_R2).E()/El_Wagen;
@@ -650,14 +745,24 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
+    D_phill = La_R2.GetFourVector(Ta_R2).Phi() - Lb_R2.GetFourVector(Tb_R2).Phi();
+
     histPlot->Fill(cat_R2);
 
     Meta = TT_R3.GetMass()/mTopo;
     Mtt = TT_R3.GetMass();
-    // Mta = Ta_R3.GetMass();
-    // Mtb = Tb_R3.GetMass();
-    // MWa = Wa_R3.GetMass();
-    // MWb = Wb_R3.GetMass();
+    Mta = Ta_R3.GetMass();
+    Mtb = Tb_R3.GetMass();
+    MWa = Wa_R3.GetMass();
+    MWb = Wb_R3.GetMass();
+
+    if(Ta_R3.GetMass() > Tb_R3.GetMass()){
+    MDt = Ta_R3.GetMass() - Tb_R3.GetMass();
+    }
+    else{
+    MDt = Tb_R3.GetMass() - Ta_R3.GetMass();
+    }
+
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E()/Eb_tagen;
     Eb_tb = Bb_R3.GetFourVector(Tb_R3).E()/Eb_tbgen;
     El_Wa = La_R3.GetFourVector(Wa_R3).E()/El_Wagen;
@@ -673,14 +778,25 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
+    D_phill = La_R3.GetFourVector(Ta_R3).Phi() - Lb_R3.GetFourVector(Tb_R3).Phi();
+
     histPlot->Fill(cat_R3);
 
     Meta = TT_R4.GetMass()/mTopo;
     Mtt = TT_R4.GetMass();
-    // Mta = Ta_R4.GetMass();
-    // Mtb = Tb_R4.GetMass();
-    // MWa = Wa_R4.GetMass();
-    // MWb = Wb_R4.GetMass();
+    Mta = Ta_R4.GetMass();
+    Mtb = Tb_R4.GetMass();
+    MWa = Wa_R4.GetMass();
+    MWb = Wb_R4.GetMass();
+
+
+    if(Ta_R4.GetMass() > Tb_R4.GetMass()){
+    MDt = Ta_R4.GetMass() - Tb_R4.GetMass();
+    }
+    else{
+    MDt = Tb_R4.GetMass() - Ta_R4.GetMass();
+    }
+
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E()/Eb_tagen;
     Eb_tb = Bb_R4.GetFourVector(Tb_R4).E()/Eb_tbgen;
     El_Wa = La_R4.GetFourVector(Wa_R4).E()/El_Wagen;
@@ -696,9 +812,11 @@ void example_N_Wlnu(){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
+    D_phill = La_R4.GetFourVector(Ta_R4).Phi() - Lb_R4.GetFourVector(Tb_R4).Phi();
+
     histPlot->Fill(cat_R4);
   
-    cout << TT_R1.GetMass()/mTopo << " " << TT_R2.GetMass()/mTopo << " " << TT_R3.GetMass()/mTopo << " " << TT_R4.GetMass()/mTopo << " " << endl; 
+    //cout << TT_R1.GetMass()/mTopo << " " << TT_R2.GetMass()/mTopo << " " << TT_R3.GetMass()/mTopo << " " << TT_R4.GetMass()/mTopo << " " << endl; 
     }//event loop
 
     histPlot->Draw();
@@ -711,18 +829,25 @@ void example_N_Wlnu(){
     treePlot->WriteOutput(output_name);
     g_Log << LogInfo << "Finished" << LogEnd;
 
-    TCanvas *c1= new TCanvas("","",800,600);
-    hist_toponium_mass->Draw("hist");
-    c1->SaveAs("toponiummass.pdf","PDF");
+    TFile f2(("hist_"+output_name).c_str(),"RECREATE");
+    hist_toponium_mass->Write();
+    hist_top_mass->Write();
+    hist_antitop_mass->Write();
+    hist_dilep_mass->Write();
+    hist_dilep_angle->Write();
+    f2.Close();
 
-    TCanvas *c2= new TCanvas("","",800,600);
-    hist_top_mass->Draw("hist");
-    c2->SaveAs("topmass.pdf","PDF");
+    // TCanvas *c1= new TCanvas("","",800,600);
+    // hist_toponium_mass->Draw("hist");
+    // c1->SaveAs((sample+"_ditop_mass.pdf").c_str(),"PDF");
 
-    TCanvas *c3= new TCanvas("","",800,600);
-    hist_antitop_mass->Draw("hist");
-    c3->SaveAs("antitopmass.pdf","PDF");
-    
+    // TCanvas *c2= new TCanvas("","",800,600);
+    // hist_top_mass->Draw("hist");
+    // c2->SaveAs((sample+"_topmass.pdf").c_str(),"PDF");
+
+    // TCanvas *c3= new TCanvas("","",800,600);
+    // hist_antitop_mass->Draw("hist");
+    // c3->SaveAs((sample+"_antitop_mass.pdf").c_str(),"PDF");
 
   }
 
