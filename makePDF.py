@@ -116,6 +116,13 @@ def Plot(sample):
         histD.Draw("histsame")
         legend.Draw()
 
+
+        title_text = ROOT.TLatex()
+        title_text.SetNDC()
+        title_text.SetTextSize(0.05)
+        title_text.DrawLatex(0.25, 0.82, sample)
+
+
         c.Update()
         c.SaveAs("ttbar/"+obj+"_"+sample+".pdf")
 
@@ -126,8 +133,16 @@ def Plot(sample):
 
         c = ROOT.TCanvas()#"","",800,600)
         c.SetLeftMargin(0.2)
+        c.SetRightMargin(0.3)
         c.SetBottomMargin(0.2)
-        histA.Draw()
+        histA.Draw("COLZ")
+
+
+        title_text = ROOT.TLatex()
+        title_text.SetNDC()
+        title_text.SetTextSize(0.05)
+        title_text.DrawLatex(0.25, 0.82, sample)
+
         c.SaveAs("ttbar/"+obj+"_"+sample+".pdf")
 
 
