@@ -398,10 +398,13 @@ void example_N_Wlnu(){
     const HistPlotCategory& cat_R3  = histPlot->GetNewCategory("Reco3", "min #Sigma M_{top}^{ 2} Reco");
     const HistPlotCategory& cat_R4  = histPlot->GetNewCategory("Reco4", "min #Delta M_{top} Reco");
   
-    const HistPlotVar& Mta    = histPlot->GetNewVar("Mta", "M_{ta}", 100., 200.);
-    const HistPlotVar& Mtb    = histPlot->GetNewVar("Mtb", "M_{tb}", 100., 200.);
-    const HistPlotVar& MWa    = histPlot->GetNewVar("MWa", "M_{Wa}", 50., 150.);
-    const HistPlotVar& MWb    = histPlot->GetNewVar("MWb", "M_{Wb}", 50., 150.);
+    const HistPlotVar& Mta    = histPlot->GetNewVar("Mta", "M_{ta}", 0., 200.);
+    const HistPlotVar& Mtb    = histPlot->GetNewVar("Mtb", "M_{tb}", 0., 200.);
+    const HistPlotVar& MWa    = histPlot->GetNewVar("MWa", "M_{Wa}", 0., 200.);
+    const HistPlotVar& MWb    = histPlot->GetNewVar("MWb", "M_{Wb}", 0., 200.);
+
+    const HistPlotVar& MtH   = histPlot->GetNewVar("MtH", "M_{tH}", 0., 200.);
+    const HistPlotVar& MtL    = histPlot->GetNewVar("MtL", "M_{tL}", 0., 200.);
 
     const HistPlotVar& MDt    = histPlot->GetNewVar("MDt", "|M_{ta}-M_{tb}|", 0., 20.);
     const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#theta_{#it{l}a} - #theta_{#it{l}b}", 
@@ -432,19 +435,24 @@ void example_N_Wlnu(){
 
     histPlot->AddPlot(Mta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mtb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(MtH, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(MtL, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mll, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
-
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MDt, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mtt,   cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Eb_ta, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Eb_tb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(El_Wa, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(El_Wb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Dcostt, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Dcosta, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Dcostb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(DcosWa, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(DcosWb, cat_R1+cat_R2+cat_R3+cat_R4);
   
     histPlot->AddPlot(Meta, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
@@ -455,11 +463,17 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Eb_ta, El_Wb, cat_R1);
     histPlot->AddPlot(Dcostt, Mtt,  cat_R1);
     histPlot->AddPlot(Dcosta, Eb_ta, cat_R1);
+    histPlot->AddPlot(Dcostb, Eb_tb, cat_R1);
     histPlot->AddPlot(DcosWa, El_Wa, cat_R1);
+    histPlot->AddPlot(DcosWb, El_Wb, cat_R1);
     histPlot->AddPlot(Dcostt, Dcosta, cat_R1);
     histPlot->AddPlot(Dcosta, Dcostb, cat_R1);
     histPlot->AddPlot(DcosWa, DcosWb, cat_R1);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R1);
+    histPlot->AddPlot(Dcostb, DcosWb, cat_R1);
+    histPlot->AddPlot(Mta, Mtb, cat_R1);
+    histPlot->AddPlot(Mta, MWa, cat_R1);
+    histPlot->AddPlot(Mtb, MWb, cat_R1);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
@@ -470,11 +484,17 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Eb_ta, El_Wb, cat_R2);
     histPlot->AddPlot(Dcostt, Mtt,  cat_R2);
     histPlot->AddPlot(Dcosta, Eb_ta, cat_R2);
+    histPlot->AddPlot(Dcostb, Eb_tb, cat_R2);
     histPlot->AddPlot(DcosWa, El_Wa, cat_R2);
+    histPlot->AddPlot(DcosWb, El_Wb, cat_R2);
     histPlot->AddPlot(Dcostt, Dcosta, cat_R2);
     histPlot->AddPlot(Dcosta, Dcostb, cat_R2);
     histPlot->AddPlot(DcosWa, DcosWb, cat_R2);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R2);
+    histPlot->AddPlot(Dcostb, DcosWb, cat_R2);
+    histPlot->AddPlot(Mta, Mtb, cat_R2);
+    histPlot->AddPlot(Mta, MWa, cat_R2);
+    histPlot->AddPlot(Mtb, MWb, cat_R2);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
@@ -485,11 +505,17 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Eb_ta, El_Wb, cat_R3);
     histPlot->AddPlot(Dcostt, Mtt,  cat_R3);
     histPlot->AddPlot(Dcosta, Eb_ta, cat_R3);
+    histPlot->AddPlot(Dcostb, Eb_tb, cat_R3);
     histPlot->AddPlot(DcosWa, El_Wa, cat_R3);
+    histPlot->AddPlot(DcosWb, El_Wb, cat_R3);
     histPlot->AddPlot(Dcostt, Dcosta, cat_R3);
     histPlot->AddPlot(Dcosta, Dcostb, cat_R3);
     histPlot->AddPlot(DcosWa, DcosWb, cat_R3);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R3);
+    histPlot->AddPlot(Dcostb, DcosWb, cat_R3);
+    histPlot->AddPlot(Mta, Mtb, cat_R3);
+    histPlot->AddPlot(Mta, MWa, cat_R3);
+    histPlot->AddPlot(Mtb, MWb, cat_R3);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
@@ -500,11 +526,17 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Eb_ta, El_Wb, cat_R4);
     histPlot->AddPlot(Dcostt, Mtt,  cat_R4);
     histPlot->AddPlot(Dcosta, Eb_ta, cat_R4);
+    histPlot->AddPlot(Dcostb, Eb_tb, cat_R4);
     histPlot->AddPlot(DcosWa, El_Wa, cat_R4);
+    histPlot->AddPlot(DcosWb, El_Wb, cat_R4);
     histPlot->AddPlot(Dcostt, Dcosta, cat_R4);
     histPlot->AddPlot(Dcosta, Dcostb, cat_R4);
     histPlot->AddPlot(DcosWa, DcosWb, cat_R4);
     histPlot->AddPlot(Dcosta, DcosWa, cat_R4);
+    histPlot->AddPlot(Dcostb, DcosWb, cat_R4);
+    histPlot->AddPlot(Mta, Mtb, cat_R4);
+    histPlot->AddPlot(Mta, MWa, cat_R4);
+    histPlot->AddPlot(Mtb, MWb, cat_R4);
 
 
     // some hists
@@ -694,11 +726,15 @@ void example_N_Wlnu(){
     MWb = Wb_R1.GetMass();
     Mll = (La_R1+Lb_R1).GetMass();
 
-    if(Ta_R1.GetMass() > Tb_R1.GetMass()){
-    MDt = Ta_R1.GetMass() - Tb_R1.GetMass();
+    if(Mta > Mtb){
+      MtH = Mta;
+      MtL = Mtb;
+      MDt = Mta - Mtb;
     }
     else{
-    MDt = Tb_R1.GetMass() - Ta_R1.GetMass();
+      MtH = Mtb;
+      MtL = Mta;
+      MDt = Mtb - Mta;
     }
 
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E()/Eb_tagen;
@@ -728,11 +764,15 @@ void example_N_Wlnu(){
     MWb = Wb_R2.GetMass();
     Mll = (La_R2+Lb_R2).GetMass();
 
-    if(Ta_R2.GetMass() > Tb_R2.GetMass()){
-    MDt = Ta_R2.GetMass() - Tb_R2.GetMass();
+    if(Mta > Mtb){
+      MtH = Mta;
+      MtL = Mtb;
+      MDt = Mta - Mtb;
     }
     else{
-    MDt = Tb_R2.GetMass() - Ta_R2.GetMass();
+      MtH = Mtb;
+      MtL = Mta;
+      MDt = Mtb - Mta;
     }
 
     Eb_ta = Ba_R2.GetFourVector(Ta_R2).E()/Eb_tagen;
@@ -762,12 +802,17 @@ void example_N_Wlnu(){
     MWb = Wb_R3.GetMass();
     Mll = (La_R3+Lb_R3).GetMass();
 
-    if(Ta_R3.GetMass() > Tb_R3.GetMass()){
-    MDt = Ta_R3.GetMass() - Tb_R3.GetMass();
+    if(Mta > Mtb){
+      MtH = Mta;
+      MtL = Mtb;
+      MDt = Mta - Mtb;
     }
     else{
-    MDt = Tb_R3.GetMass() - Ta_R3.GetMass();
+      MtH = Mtb;
+      MtL = Mta;
+      MDt = Mtb - Mta;
     }
+    
 
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E()/Eb_tagen;
     Eb_tb = Bb_R3.GetFourVector(Tb_R3).E()/Eb_tbgen;
@@ -797,12 +842,17 @@ void example_N_Wlnu(){
     Mll = (La_R4+Lb_R4).GetMass();
 
 
-    if(Ta_R4.GetMass() > Tb_R4.GetMass()){
-    MDt = Ta_R4.GetMass() - Tb_R4.GetMass();
+    if(Mta > Mtb){
+      MtH = Mta;
+      MtL = Mtb;
+      MDt = Mta - Mtb;
     }
     else{
-    MDt = Tb_R4.GetMass() - Ta_R4.GetMass();
+      MtH = Mtb;
+      MtL = Mta;
+      MDt = Mtb - Mta;
     }
+    
 
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E()/Eb_tagen;
     Eb_tb = Bb_R4.GetFourVector(Tb_R4).E()/Eb_tbgen;
