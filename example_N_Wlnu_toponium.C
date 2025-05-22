@@ -457,6 +457,8 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Meta, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, El_Wa, cat_R1);
+    histPlot->AddPlot(Mtt, Eb_tb, cat_R1);
+    histPlot->AddPlot(Mtt, El_Wb, cat_R1);
     histPlot->AddPlot(Eb_ta, Eb_tb, cat_R1);
     histPlot->AddPlot(El_Wa, El_Wb, cat_R1);
     histPlot->AddPlot(Eb_ta, El_Wa, cat_R1);
@@ -472,12 +474,15 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Dcosta, DcosWa, cat_R1);
     histPlot->AddPlot(Dcostb, DcosWb, cat_R1);
     histPlot->AddPlot(Mta, Mtb, cat_R1);
+    histPlot->AddPlot(MtH, MtL, cat_R1);
     histPlot->AddPlot(Mta, MWa, cat_R1);
     histPlot->AddPlot(Mtb, MWb, cat_R1);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, El_Wa, cat_R2);
+    histPlot->AddPlot(Mtt, Eb_tb, cat_R2);
+    histPlot->AddPlot(Mtt, El_Wb, cat_R2);
     histPlot->AddPlot(Eb_ta, Eb_tb, cat_R2);
     histPlot->AddPlot(El_Wa, El_Wb, cat_R2);
     histPlot->AddPlot(Eb_ta, El_Wa, cat_R2);
@@ -493,12 +498,15 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Dcosta, DcosWa, cat_R2);
     histPlot->AddPlot(Dcostb, DcosWb, cat_R2);
     histPlot->AddPlot(Mta, Mtb, cat_R2);
+    histPlot->AddPlot(MtH, MtL, cat_R2);
     histPlot->AddPlot(Mta, MWa, cat_R2);
     histPlot->AddPlot(Mtb, MWb, cat_R2);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, El_Wa, cat_R3);
+    histPlot->AddPlot(Mtt, Eb_tb, cat_R3);
+    histPlot->AddPlot(Mtt, El_Wb, cat_R3);
     histPlot->AddPlot(Eb_ta, Eb_tb, cat_R3);
     histPlot->AddPlot(El_Wa, El_Wb, cat_R3);
     histPlot->AddPlot(Eb_ta, El_Wa, cat_R3);
@@ -514,12 +522,15 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Dcosta, DcosWa, cat_R3);
     histPlot->AddPlot(Dcostb, DcosWb, cat_R3);
     histPlot->AddPlot(Mta, Mtb, cat_R3);
+    histPlot->AddPlot(MtH, MtL, cat_R3);
     histPlot->AddPlot(Mta, MWa, cat_R3);
     histPlot->AddPlot(Mtb, MWb, cat_R3);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, El_Wa, cat_R4);
+    histPlot->AddPlot(Mtt, Eb_tb, cat_R4);
+    histPlot->AddPlot(Mtt, El_Wb, cat_R4);
     histPlot->AddPlot(Eb_ta, Eb_tb, cat_R4);
     histPlot->AddPlot(El_Wa, El_Wb, cat_R4);
     histPlot->AddPlot(Eb_ta, El_Wa, cat_R4);
@@ -535,6 +546,7 @@ void example_N_Wlnu(){
     histPlot->AddPlot(Dcosta, DcosWa, cat_R4);
     histPlot->AddPlot(Dcostb, DcosWb, cat_R4);
     histPlot->AddPlot(Mta, Mtb, cat_R4);
+    histPlot->AddPlot(MtH, MtL, cat_R4);
     histPlot->AddPlot(Mta, MWa, cat_R4);
     histPlot->AddPlot(Mtb, MWb, cat_R4);
 

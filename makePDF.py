@@ -89,11 +89,11 @@ def Plot(sample):
         histC.SetFillColor(ROOT.kRed)
         histD.SetFillColor(ROOT.kYellow+2)
 
-        legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
-        legend.AddEntry(histA, "Reco1","L")
-        legend.AddEntry(histB, "Reco2","L")
-        legend.AddEntry(histC, "Reco3","L")
-        legend.AddEntry(histD, "Reco4","L")
+        legend = ROOT.TLegend(0.65, 0.7, 0.9, 0.9)
+        legend.AddEntry(histA, "M_{top}^{ a} = M_{top}^{ b} Reco","L")
+        legend.AddEntry(histB, "M_{W}^{ a} = M_{W}^{ b} Reco","L")
+        legend.AddEntry(histC, "min #Sigma M_{top}^{ 2} Reco","L")
+        legend.AddEntry(histD, "min #Delta M_{top} Reco","L")
         legend.SetFillStyle(0)
         legend.SetBorderSize(0)
         if(histA.GetYaxis().GetTitle()==""):
@@ -104,7 +104,7 @@ def Plot(sample):
         histA.GetXaxis().SetTitle(histA.GetXaxis().GetTitle())
         histA.GetYaxis().SetTitle(histA.GetYaxis().GetTitle())
 
-        histA.SetMaximum(1.2*max(histA.GetMaximum(), histB.GetMaximum(), histC.GetMaximum(), histD.GetMaximum()))
+        histA.SetMaximum(1.4*max(histA.GetMaximum(), histB.GetMaximum(), histC.GetMaximum(), histD.GetMaximum()))
 
         c = ROOT.TCanvas()#"","",800,600)
         c.SetLeftMargin(0.2)
