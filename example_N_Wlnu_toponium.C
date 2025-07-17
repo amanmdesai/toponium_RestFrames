@@ -1,4 +1,4 @@
-#include "RestFrames/RestFrames.hh"
+#include "RestFrames.hh"
 
 #include <TLorentzVector.h>
 #include <TH2.h>
@@ -29,10 +29,10 @@
 using namespace std;
 using namespace RestFrames;
 
-void example_N_Wlnu(){
+void run(std::string sample){
 
   //std::string sample = "ttbar";
-  std::string sample = "toponium";
+  //std::string sample = "toponium";
 
   std::string output_name = sample+"_reco.root";
   TFile *f1 = new TFile((sample+".root").c_str(),"read");
@@ -68,7 +68,7 @@ void example_N_Wlnu(){
   Int_t total_entries = tree->GetEntriesFast();
 
 
-  double mH = 344; 
+  double mH = 348; 
   double mT = 173; 
   double mW = 80.385;
   double mB = 4.18;
@@ -122,7 +122,7 @@ void example_N_Wlnu(){
     // Higgs mass
     TT_Gen.SetMass(mH);
     // set top masses
-    Ta_Gen.SetMass(mT);            Tb_Gen.SetMass(mT-2.);
+    Ta_Gen.SetMass(mT);            Tb_Gen.SetMass(mT);
     // set W masses
     Wa_Gen.SetMass(mW);            Wb_Gen.SetMass(mW);
     // set B masses
@@ -564,6 +564,7 @@ void example_N_Wlnu(){
 
     for(Int_t entry=0; entry < total_entries; ++entry){
 
+
       
       tree->GetEntry(entry);
   
@@ -921,8 +922,9 @@ void example_N_Wlnu(){
   }
 
 # ifndef __CINT__ // main function for stand-alone compilation
-int main(){
-  example_N_Wlnu();
+int example_N_Wlnu_toponium(){
+  run("toponium");
+  run("ttbar");
   return 0;
 }
 #endif

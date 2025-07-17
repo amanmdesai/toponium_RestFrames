@@ -2,3 +2,5 @@ results/
 .vscode
 __pycache*
 ttbar/
+*root
+*pdf

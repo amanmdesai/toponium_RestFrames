@@ -1,0 +1,11 @@
+generate p p > t t~ [QCD]
+output topPair
+launch
+shower=Pythia8
+madspin=ON
+madspin_card.dat
+set nevents 500000
+set pdlabel lhapdf
+set lhaid 260000
+set ebeam1 6800
+set ebeam2 6800

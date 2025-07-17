@@ -14,8 +14,8 @@ def hist():
         "hist_dilep_angle" : "\\Delta \\phi_{ll'}",
     }
     #vars = ["mass", "heavy_top", "light_top", "hist_dilep_mass", "hist_dilep_angle"]
-    file1 = ROOT.TFile.Open("results/hist_toponium_reco.root")
-    file2 = ROOT.TFile.Open("results/hist_ttbar_reco.root")
+    file1 = ROOT.TFile.Open("hist_toponium_reco.root")
+    file2 = ROOT.TFile.Open("hist_ttbar_reco.root")
     
     for var in vars:
         h1 = file1.Get(var)
@@ -45,7 +45,7 @@ def hist():
 
 def Plot(sample):
     # Open the ROOT file
-    file = ROOT.TFile.Open("results/"+sample+"_reco.root")
+    file = ROOT.TFile.Open(sample+"_reco.root")
 
     # Get the folder inside the file
     tree = file.Get("HistPlot/hist")

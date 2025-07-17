@@ -1,0 +1,9 @@
+set main.fastsim.package = fastjet
+set main.fastsim.algorithm = antikt
+set main.lumi = 300
+set main.fastsim.radius = 0.4
+set main.outputfile = "ma5_output.lhe"
+# import tag_1_pythia8_events.hepmc.gz
+import events_PYTHIA8_0.hepmc.gz
+submit
+
