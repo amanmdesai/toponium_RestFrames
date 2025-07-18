@@ -22,25 +22,38 @@ def hist():
         h2 = file2.Get(var)
         h1.SetLineColor(ROOT.kBlue)
         h2.SetLineColor(ROOT.kRed)
+        h1.SetLineWidth(2)
+        h2.SetLineWidth(2)
+        h1.SetTitle("")
+
+        h1.GetXaxis().SetTitleFont(42)
+        h1.GetXaxis().SetTitleSize(0.05)
+        h1.GetXaxis().SetTitleOffset(1.0)
+        h1.GetYaxis().SetTitleFont(42)
+        h1.GetYaxis().SetTitleSize(0.05)
+        h1.GetYaxis().SetTitleOffset(1.2)
+
         print(vars[var])
         h1.GetXaxis().SetTitle(vars[var])
         h1.GetYaxis().SetTitle("Events")
-        legend = ROOT.TLegend(0.8, 0.75, 0.9, 0.9)
-        legend.AddEntry(h1, "\\eta_{t}","L")
+        legend = ROOT.TLegend(0.72, 0.75, 0.9, 0.9)
+        legend.AddEntry(h1, "toponium","L")
         legend.AddEntry(h2, "t\\bar{t}","L")
         legend.SetFillStyle(0)
         legend.SetBorderSize(0)
-        h1.SetMaximum(10*h1.GetMaximum())
+        legend.SetTextFont(42)
+        legend.SetTextSize(0.05)
 
         c = ROOT.TCanvas()
         h1.Draw("hist")
         h2.Draw("histsame")
+        h1.SetMaximum(1.2*max(h1.GetMaximum(),h2.GetMaximum()))
         legend.Draw()
-        c.SetLogy()
         c.SetLeftMargin(0.2)
         c.SetBottomMargin(0.2)
 
-        c.SaveAs("ttbar/"+var+".pdf")
+        c.SaveAs("plots/"+var+"_lin.png")
+        c.SaveAs("plots/"+var+"_lin.pdf")
 
 
 def Plot(sample):
