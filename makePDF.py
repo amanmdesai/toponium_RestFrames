@@ -52,8 +52,8 @@ def hist():
         c.SetLeftMargin(0.2)
         c.SetBottomMargin(0.2)
 
-        c.SaveAs("plots/"+var+"_lin.png")
-        c.SaveAs("plots/"+var+"_lin.pdf")
+        c.SaveAs("ttbar/"+var+"_lin.png")
+        c.SaveAs("ttbar/"+var+"_lin.pdf")
 
 
 def Plot(sample):
