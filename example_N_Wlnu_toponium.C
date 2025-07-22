@@ -463,6 +463,7 @@ void run(std::string sample){
     histPlot->AddPlot(Meta, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, chel, cat_R1);
+    histPlot->AddPlot(Mtt, chan, cat_R1);
     histPlot->AddPlot(Mtt, El_Wa, cat_R1);
     histPlot->AddPlot(Mtt, Eb_tb, cat_R1);
     histPlot->AddPlot(Mtt, El_Wb, cat_R1);
@@ -488,6 +489,7 @@ void run(std::string sample){
     histPlot->AddPlot(Meta, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, chel, cat_R2);
+    histPlot->AddPlot(Mtt, chan, cat_R2);
     histPlot->AddPlot(Mtt, El_Wa, cat_R2);
     histPlot->AddPlot(Mtt, Eb_tb, cat_R2);
     histPlot->AddPlot(Mtt, El_Wb, cat_R2);
@@ -513,6 +515,7 @@ void run(std::string sample){
     histPlot->AddPlot(Meta, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, chel, cat_R3);
+    histPlot->AddPlot(Mtt, chan, cat_R3);
     histPlot->AddPlot(Mtt, El_Wa, cat_R3);
     histPlot->AddPlot(Mtt, Eb_tb, cat_R3);
     histPlot->AddPlot(Mtt, El_Wb, cat_R3);
@@ -538,6 +541,7 @@ void run(std::string sample){
     histPlot->AddPlot(Meta, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, chel, cat_R4);
+    histPlot->AddPlot(Mtt, chan, cat_R4);
     histPlot->AddPlot(Mtt, El_Wa, cat_R4);
     histPlot->AddPlot(Mtt, Eb_tb, cat_R4);
     histPlot->AddPlot(Mtt, El_Wb, cat_R4);
@@ -770,13 +774,10 @@ void run(std::string sample){
 
     tb_vec.SetXYZ(Tb_R1.GetFourVector().Px(),Tb_R1.GetFourVector().Py(),Tb_R1.GetFourVector().Pz());
 
-    if(tb_vec.Dot(lb_tb) > 0){
-      chan = la_ta.Dot(-lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
+    la_ta.SetXYZ(La_R1.GetFourVector(Ta_R1).Px(),La_R1.GetFourVector(Ta_R1).Py(),La_R1.GetFourVector(Ta_R1).Pz());
+    lb_tb.SetXYZ(Lb_R1.GetFourVector(Tb_R1).Px(),Lb_R1.GetFourVector(Tb_R1).Py(),-Lb_R1.GetFourVector(Tb_R1).Pz());
 
-    if(tb_vec.Dot(la_ta) > 0){
-      chan = -la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
+    chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
 
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E();
@@ -822,13 +823,9 @@ void run(std::string sample){
 
     tb_vec.SetXYZ(Tb_R2.GetFourVector().Px(),Tb_R2.GetFourVector().Py(),Tb_R2.GetFourVector().Pz());
 
-    if(tb_vec.Dot(lb_tb) > 0){
-      chan = la_ta.Dot(-lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
-
-    if(tb_vec.Dot(la_ta) > 0){
-      chan = -la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
+    la_ta.SetXYZ(La_R2.GetFourVector(Ta_R2).Px(),La_R2.GetFourVector(Ta_R2).Py(),La_R2.GetFourVector(Ta_R2).Pz());
+    lb_tb.SetXYZ(Lb_R2.GetFourVector(Tb_R2).Px(),Lb_R2.GetFourVector(Tb_R2).Py(),-Lb_R2.GetFourVector(Tb_R2).Pz());
+    chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
     Eb_ta = Ba_R2.GetFourVector(Ta_R2).E();
     Eb_tb = Bb_R2.GetFourVector(Tb_R2).E();
@@ -873,13 +870,9 @@ void run(std::string sample){
     chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
     tb_vec.SetXYZ(Tb_R3.GetFourVector().Px(),Tb_R3.GetFourVector().Py(),Tb_R3.GetFourVector().Pz());
 
-    if(tb_vec.Dot(lb_tb) > 0){
-      chan = la_ta.Dot(-lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
-
-    if(tb_vec.Dot(la_ta) > 0){
-      chan = -la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
+    la_ta.SetXYZ(La_R3.GetFourVector(Ta_R3).Px(),La_R3.GetFourVector(Ta_R3).Py(),La_R3.GetFourVector(Ta_R3).Pz());
+    lb_tb.SetXYZ(Lb_R3.GetFourVector(Tb_R3).Px(),Lb_R3.GetFourVector(Tb_R3).Py(),-Lb_R3.GetFourVector(Tb_R3).Pz());
+    chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E();
     Eb_tb = Bb_R3.GetFourVector(Tb_R3).E();
@@ -925,13 +918,9 @@ void run(std::string sample){
     chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
     tb_vec.SetXYZ(Tb_R4.GetFourVector().Px(),Tb_R4.GetFourVector().Py(),Tb_R4.GetFourVector().Pz());
 
-    if(tb_vec.Dot(lb_tb) > 0){
-      chan = la_ta.Dot(-lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
-
-    if(tb_vec.Dot(la_ta) > 0){
-      chan = -la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    }
+    la_ta.SetXYZ(La_R4.GetFourVector(Ta_R4).Px(),La_R4.GetFourVector(Ta_R4).Py(),La_R4.GetFourVector(Ta_R4).Pz());
+    lb_tb.SetXYZ(Lb_R4.GetFourVector(Tb_R4).Px(),Lb_R4.GetFourVector(Tb_R4).Py(),-Lb_R4.GetFourVector(Tb_R4).Pz());
+    chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E();
     Eb_tb = Bb_R4.GetFourVector(Tb_R4).E();
