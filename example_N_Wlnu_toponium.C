@@ -407,7 +407,7 @@ void run(std::string sample){
     const HistPlotVar& MtL    = histPlot->GetNewVar("MtL", "M_{tL}", 0., 300.);
 
     const HistPlotVar& MDt    = histPlot->GetNewVar("MDt", "M_{tH}-M_{tL}|", -5., 5.);
-    const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#theta_{#it{l}a} - #theta_{#it{l}b}", 
+    const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#phi_{#it{l}a} - #phi_{#it{l}b}", 
        -acos(-1.)/2., acos(-1.)/2.);
 
 
@@ -417,6 +417,7 @@ void run(std::string sample){
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
     const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
     const HistPlotVar& Mll   = histPlot->GetNewVar("Mll", "M_{#it{l}_{a}#it{l}_{b}}", 0., 300.);
+    const HistPlotVar& Mllbb   = histPlot->GetNewVar("Mllbb", "M_{#it{l}_{a}#it{l}_{b}bb}", 0., 800.);
     const HistPlotVar& Eb_ta  = histPlot->GetNewVar("Eb_ta", "E_{b a}^{top a}", 0., 100.);
     const HistPlotVar& Eb_tb  = histPlot->GetNewVar("Eb_tb", "E_{b b}^{top b}", 0., 100.);
     const HistPlotVar& El_Wa  = histPlot->GetNewVar("El_Wa", "E_{#it{l} a}^{W a}", 0., 100.);
@@ -444,6 +445,7 @@ void run(std::string sample){
     histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mll, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Mllbb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MDt, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -462,6 +464,8 @@ void run(std::string sample){
   
     histPlot->AddPlot(Meta, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
+    histPlot->AddPlot(Mtt, Mll, cat_R1);
+    histPlot->AddPlot(Mtt, Mllbb, cat_R1);
     histPlot->AddPlot(Mtt, chel, cat_R1);
     histPlot->AddPlot(Mtt, chan, cat_R1);
     histPlot->AddPlot(Mtt, El_Wa, cat_R1);
@@ -488,6 +492,8 @@ void run(std::string sample){
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
+    histPlot->AddPlot(Mtt, Mll, cat_R2);
+    histPlot->AddPlot(Mtt, Mllbb, cat_R2);
     histPlot->AddPlot(Mtt, chel, cat_R2);
     histPlot->AddPlot(Mtt, chan, cat_R2);
     histPlot->AddPlot(Mtt, El_Wa, cat_R2);
@@ -514,6 +520,8 @@ void run(std::string sample){
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
+    histPlot->AddPlot(Mtt, Mll, cat_R3);
+    histPlot->AddPlot(Mtt, Mllbb, cat_R3);
     histPlot->AddPlot(Mtt, chel, cat_R3);
     histPlot->AddPlot(Mtt, chan, cat_R3);
     histPlot->AddPlot(Mtt, El_Wa, cat_R3);
@@ -540,6 +548,8 @@ void run(std::string sample){
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R4);
+    histPlot->AddPlot(Mtt, Mll, cat_R4);
+    histPlot->AddPlot(Mtt, Mllbb, cat_R4);
     histPlot->AddPlot(Mtt, chel, cat_R4);
     histPlot->AddPlot(Mtt, chan, cat_R4);
     histPlot->AddPlot(Mtt, El_Wa, cat_R4);
@@ -755,6 +765,7 @@ void run(std::string sample){
     MWa = Wa_R1.GetMass();
     MWb = Wb_R1.GetMass();
     Mll = (La_R1+Lb_R1).GetMass();
+    Mllbb = (La_R1+Lb_R1+Ba_R1+Bb_R1).GetMass();
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -795,7 +806,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
     
-    //D_phill = (La_R1 - Lb_R1).Phi(); // check this variable definition
+    D_phill = La_R1.GetFourVector(TT_R1).Phi() - Lb_R1.GetFourVector(TT_R1).Phi();
 
     histPlot->Fill(cat_R1);
 
@@ -806,6 +817,7 @@ void run(std::string sample){
     MWa = Wa_R2.GetMass();
     MWb = Wb_R2.GetMass();
     Mll = (La_R2+Lb_R2).GetMass();
+    Mllbb = (La_R2+Lb_R2+Ba_R2+Bb_R2).GetMass();
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -842,7 +854,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    //D_phill = (La_R2 - Lb_R2).Phi(); // check this variable definition
+    D_phill = La_R2.GetFourVector(TT_R2).Phi() - Lb_R2.GetFourVector(TT_R2).Phi();
 
     histPlot->Fill(cat_R2);
 
@@ -853,6 +865,7 @@ void run(std::string sample){
     MWa = Wa_R3.GetMass();
     MWb = Wb_R3.GetMass();
     Mll = (La_R3+Lb_R3).GetMass();
+    Mllbb = (La_R3+Lb_R3+Ba_R3+Bb_R3).GetMass();
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -889,7 +902,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    //D_phill = (La_R3 - Lb_R3).Phi(); // check this variable definition
+    D_phill = La_R3.GetFourVector(TT_R3).Phi() - Lb_R3.GetFourVector(TT_R3).Phi();
 
     histPlot->Fill(cat_R3);
 
@@ -900,6 +913,7 @@ void run(std::string sample){
     MWa = Wa_R4.GetMass();
     MWb = Wb_R4.GetMass();
     Mll = (La_R4+Lb_R4).GetMass();
+    Mllbb = (La_R4+Lb_R4+Ba_R4+Bb_R4).GetMass();
 
 
     if(Mta > Mtb){
@@ -937,7 +951,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    //D_phill = (La_R4 - Lb_R4).Phi(); // check this variable definition
+    D_phill = La_R4.GetFourVector(TT_R4).Phi() - Lb_R4.GetFourVector(TT_R4).Phi();
 
     histPlot->Fill(cat_R4);
   
