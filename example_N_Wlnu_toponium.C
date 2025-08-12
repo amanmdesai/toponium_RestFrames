@@ -444,8 +444,6 @@ void run(std::string sample){
     histPlot->AddPlot(MtL, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
-    histPlot->AddPlot(Mll, cat_R1+cat_R2+cat_R3+cat_R4);
-    histPlot->AddPlot(Mllbb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MDt, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -454,6 +452,12 @@ void run(std::string sample){
     histPlot->AddPlot(Eb_tb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(El_Wa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(El_Wb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Mll, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(Mllbb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(cosWa, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(cosWb, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(costa, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(costb, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Dcostt, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Dcosta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Dcostb, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -462,6 +466,22 @@ void run(std::string sample){
     histPlot->AddPlot(chel, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(chan, cat_R1+cat_R2+cat_R3+cat_R4);
   
+    histPlot->AddPlot(Eb_ta, chel, cat_R1);
+    histPlot->AddPlot(Eb_ta, chan, cat_R1);
+    histPlot->AddPlot(cosWa, chel, cat_R1);
+    histPlot->AddPlot(cosWa, chan, cat_R1);
+    histPlot->AddPlot(cosWb, chel, cat_R1);
+    histPlot->AddPlot(cosWb, chan, cat_R1);
+    // histPlot->AddPlot((cosWb-cosWa), chel, cat_R1);
+    // histPlot->AddPlot((cosWb-cosWa), chan, cat_R1);
+    histPlot->AddPlot(costa, chel, cat_R1);
+    histPlot->AddPlot(costa, chan, cat_R1);
+    histPlot->AddPlot(costb, chel, cat_R1);
+    histPlot->AddPlot(costb, chan, cat_R1);
+    histPlot->AddPlot(Mll, chel, cat_R1);
+    histPlot->AddPlot(Mll, chan, cat_R1);
+    histPlot->AddPlot(Mllbb, chel, cat_R1);
+    histPlot->AddPlot(Mllbb, chan, cat_R1);
     histPlot->AddPlot(Meta, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R1);
     histPlot->AddPlot(Mtt, Mll, cat_R1);
@@ -489,6 +509,24 @@ void run(std::string sample){
     histPlot->AddPlot(MtH, MtL, cat_R1);
     histPlot->AddPlot(Mta, MWa, cat_R1);
     histPlot->AddPlot(Mtb, MWb, cat_R1);
+
+
+    histPlot->AddPlot(Eb_ta, chel, cat_R2);
+    histPlot->AddPlot(Eb_ta, chan, cat_R2);
+    histPlot->AddPlot(cosWa, chel, cat_R2);
+    histPlot->AddPlot(cosWa, chan, cat_R2);
+    histPlot->AddPlot(cosWb, chel, cat_R2);
+    histPlot->AddPlot(cosWb, chan, cat_R2);
+    // histPlot->AddPlot(cosWb-cosWa, chel, cat_R2);
+    // histPlot->AddPlot(cosWb-cosWa, chan, cat_R2);
+    histPlot->AddPlot(costa, chel, cat_R2);
+    histPlot->AddPlot(costa, chan, cat_R2);
+    histPlot->AddPlot(costb, chel, cat_R2);
+    histPlot->AddPlot(costb, chan, cat_R2);
+    histPlot->AddPlot(Mll, chel, cat_R2);
+    histPlot->AddPlot(Mll, chan, cat_R2);
+    histPlot->AddPlot(Mllbb, chel, cat_R2);
+    histPlot->AddPlot(Mllbb, chan, cat_R2);
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R2);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R2);
@@ -518,6 +556,26 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R2);
     histPlot->AddPlot(Mtb, MWb, cat_R2);
 
+
+
+    histPlot->AddPlot(Eb_ta, chel, cat_R3);
+    histPlot->AddPlot(Eb_ta, chan, cat_R3);
+    histPlot->AddPlot(cosWa, chel, cat_R3);
+    histPlot->AddPlot(cosWa, chan, cat_R3);
+    histPlot->AddPlot(cosWb, chel, cat_R3);
+    histPlot->AddPlot(cosWb, chan, cat_R3);
+    // histPlot->AddPlot(cosWb-cosWa, chel, cat_R3);
+    // histPlot->AddPlot(cosWb-cosWa, chan, cat_R3);
+    histPlot->AddPlot(costa, chel, cat_R3);
+    histPlot->AddPlot(costa, chan, cat_R3);
+    histPlot->AddPlot(costb, chel, cat_R3);
+    histPlot->AddPlot(costb, chan, cat_R3);
+    histPlot->AddPlot(Mll, chel, cat_R3);
+    histPlot->AddPlot(Mll, chan, cat_R3);
+    histPlot->AddPlot(Mllbb, chel, cat_R3);
+    histPlot->AddPlot(Mllbb, chan, cat_R3);
+
+
     histPlot->AddPlot(Meta, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R3);
     histPlot->AddPlot(Mtt, Mll, cat_R3);
@@ -545,6 +603,23 @@ void run(std::string sample){
     histPlot->AddPlot(MtH, MtL, cat_R3);
     histPlot->AddPlot(Mta, MWa, cat_R3);
     histPlot->AddPlot(Mtb, MWb, cat_R3);
+
+
+    histPlot->AddPlot(Eb_ta, chel, cat_R4);
+    histPlot->AddPlot(Eb_ta, chan, cat_R4);
+    histPlot->AddPlot(cosWa, chel, cat_R4);
+    histPlot->AddPlot(cosWa, chan, cat_R4);
+    histPlot->AddPlot(cosWb, chel, cat_R4);
+    histPlot->AddPlot(cosWb, chan, cat_R4);
+    histPlot->AddPlot(costa, chel, cat_R4);
+    histPlot->AddPlot(costa, chan, cat_R4);
+    histPlot->AddPlot(costb, chel, cat_R4);
+    histPlot->AddPlot(costb, chan, cat_R4);
+    histPlot->AddPlot(Mll, chel, cat_R4);
+    histPlot->AddPlot(Mll, chan, cat_R4);
+    histPlot->AddPlot(Mllbb, chel, cat_R4);
+    histPlot->AddPlot(Mllbb, chan, cat_R4);
+
 
     histPlot->AddPlot(Meta, Eb_ta, cat_R4);
     histPlot->AddPlot(Mtt, Eb_ta, cat_R4);

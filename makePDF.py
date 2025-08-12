@@ -157,7 +157,7 @@ def Plot(sample):
         title_text = ROOT.TLatex()
         title_text.SetNDC()
         title_text.SetTextSize(0.05)
-        title_text.DrawLatex(0.25, 0.82, sample)
+        title_text.DrawLatex(0.02, 0.7, sample)
 
         c.SaveAs("ttbar/"+obj+"_"+sample+".pdf")
 
