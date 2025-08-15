@@ -28,6 +28,7 @@
 
 using namespace std;
 using namespace RestFrames;
+ROOT::EnableImplicitMT(10);
 
 void run(std::string sample){
 
@@ -407,12 +408,15 @@ void run(std::string sample){
     const HistPlotVar& MtL    = histPlot->GetNewVar("MtL", "M_{tL}", 0., 300.);
 
     const HistPlotVar& MDt    = histPlot->GetNewVar("MDt", "M_{tH}-M_{tL}|", -5., 5.);
+    const HistPlotVar& phitt    = histPlot->GetNewVar("phitt", "#Phi(t,t)", -6., 6.);
     const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#phi_{#it{l}a} - #phi_{#it{l}b}", 
        -acos(-1.)/2., acos(-1.)/2.);
 
 
     const HistPlotVar& chel    = histPlot->GetNewVar("chel", "c_{hel}", -1., 1.);
     const HistPlotVar& chan    = histPlot->GetNewVar("chan", "c_{han}", -1., 1.);
+
+    const HistPlotVar& nchel    = histPlot->GetNewVar("nchel", "nc_{hel}", -1., 1.);
 
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
     const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
@@ -466,14 +470,28 @@ void run(std::string sample){
     histPlot->AddPlot(chel, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(chan, cat_R1+cat_R2+cat_R3+cat_R4);
   
+    histPlot->AddPlot(nchel, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(phitt, cat_R1+cat_R2+cat_R3+cat_R4);
+
+    histPlot->AddPlot(phitt, nchel, cat_R1);
+    histPlot->AddPlot(Eb_ta, nchel, cat_R1);
+    histPlot->AddPlot(cosWa, nchel, cat_R1);
+    histPlot->AddPlot(cosWb, nchel, cat_R1);
+    histPlot->AddPlot(costa, nchel, cat_R1);
+    histPlot->AddPlot(costb, nchel, cat_R1);
+    histPlot->AddPlot(Mll, nchel, cat_R1);
+    histPlot->AddPlot(Mllbb, nchel, cat_R1);
+    histPlot->AddPlot(Mtt, nchel, cat_R1);
+
+
+
+
     histPlot->AddPlot(Eb_ta, chel, cat_R1);
     histPlot->AddPlot(Eb_ta, chan, cat_R1);
     histPlot->AddPlot(cosWa, chel, cat_R1);
     histPlot->AddPlot(cosWa, chan, cat_R1);
     histPlot->AddPlot(cosWb, chel, cat_R1);
     histPlot->AddPlot(cosWb, chan, cat_R1);
-    // histPlot->AddPlot((cosWb-cosWa), chel, cat_R1);
-    // histPlot->AddPlot((cosWb-cosWa), chan, cat_R1);
     histPlot->AddPlot(costa, chel, cat_R1);
     histPlot->AddPlot(costa, chan, cat_R1);
     histPlot->AddPlot(costb, chel, cat_R1);
@@ -509,6 +527,18 @@ void run(std::string sample){
     histPlot->AddPlot(MtH, MtL, cat_R1);
     histPlot->AddPlot(Mta, MWa, cat_R1);
     histPlot->AddPlot(Mtb, MWb, cat_R1);
+
+    histPlot->AddPlot(phitt, nchel, cat_R2);
+    histPlot->AddPlot(Eb_ta, nchel, cat_R2);
+    histPlot->AddPlot(cosWa, nchel, cat_R2);
+    histPlot->AddPlot(cosWb, nchel, cat_R2);
+    histPlot->AddPlot(costa, nchel, cat_R2);
+    histPlot->AddPlot(costb, nchel, cat_R2);
+    histPlot->AddPlot(Mll, nchel, cat_R2);
+    histPlot->AddPlot(Mllbb, nchel, cat_R2);
+    histPlot->AddPlot(Mtt, nchel, cat_R2);
+
+
 
 
     histPlot->AddPlot(Eb_ta, chel, cat_R2);
@@ -556,6 +586,15 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R2);
     histPlot->AddPlot(Mtb, MWb, cat_R2);
 
+    histPlot->AddPlot(phitt, nchel, cat_R3);
+    histPlot->AddPlot(Eb_ta, nchel, cat_R3);
+    histPlot->AddPlot(cosWa, nchel, cat_R3);
+    histPlot->AddPlot(cosWb, nchel, cat_R3);
+    histPlot->AddPlot(costa, nchel, cat_R3);
+    histPlot->AddPlot(costb, nchel, cat_R3);
+    histPlot->AddPlot(Mll, nchel, cat_R3);
+    histPlot->AddPlot(Mllbb, nchel, cat_R3);
+    histPlot->AddPlot(Mtt, nchel, cat_R3);
 
 
     histPlot->AddPlot(Eb_ta, chel, cat_R3);
@@ -603,6 +642,16 @@ void run(std::string sample){
     histPlot->AddPlot(MtH, MtL, cat_R3);
     histPlot->AddPlot(Mta, MWa, cat_R3);
     histPlot->AddPlot(Mtb, MWb, cat_R3);
+
+    histPlot->AddPlot(phitt, nchel, cat_R4);
+    histPlot->AddPlot(Eb_ta, nchel, cat_R4);
+    histPlot->AddPlot(cosWa, nchel, cat_R4);
+    histPlot->AddPlot(cosWb, nchel, cat_R4);
+    histPlot->AddPlot(costa, nchel, cat_R4);
+    histPlot->AddPlot(costb, nchel, cat_R4);
+    histPlot->AddPlot(Mll, nchel, cat_R4);
+    histPlot->AddPlot(Mllbb, nchel, cat_R4);
+    histPlot->AddPlot(Mtt, nchel, cat_R4);
 
 
     histPlot->AddPlot(Eb_ta, chel, cat_R4);
@@ -662,10 +711,8 @@ void run(std::string sample){
     /////////////////////////////////////////////////////////////////////////////////////////
     TVector3 la_ta, lb_tb, tb_vec;
 
-    //for(Int_t entry=0; entry < 1000; ++entry){
     for(Int_t entry=0; entry < total_entries; ++entry){
-
-
+    //for(Int_t entry=0; entry < total_entries; ++entry){
       
       tree->GetEntry(entry);
   
@@ -841,6 +888,7 @@ void run(std::string sample){
     MWb = Wb_R1.GetMass();
     Mll = (La_R1+Lb_R1).GetMass();
     Mllbb = (La_R1+Lb_R1+Ba_R1+Bb_R1).GetMass();
+    phitt = Ta_R1.GetFourVector().Phi() - Tb_R1.GetFourVector().Phi(); 
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -853,17 +901,82 @@ void run(std::string sample){
       MDt = Mtb - Mta;
     }
 
-            
-    la_ta.SetXYZ(La_R1.GetFourVector(Ta_R1).Px(),La_R1.GetFourVector(Ta_R1).Py(),La_R1.GetFourVector(Ta_R1).Pz());
-    lb_tb.SetXYZ(Lb_R1.GetFourVector(Tb_R1).Px(),Lb_R1.GetFourVector(Tb_R1).Py(),Lb_R1.GetFourVector(Tb_R1).Pz());
+    TVector3 boostToTTbarCM, boostToTopRest,  boostToAntitopRest ; 
+    TLorentzVector lep_boosteda,lep_boostedb, topInTTbar, antitopInTTbar;
+
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+    topInTTbar.SetPxPyPzE(0, 0, 0, 0);
+    antitopInTTbar.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM.SetXYZ(0, 0, 0);
+    boostToTopRest.SetXYZ(0, 0, 0);
+    boostToAntitopRest.SetXYZ(0, 0, 0);
+
+    // Initialize TLorentzVector to zero
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM = -(Ta_R1.GetFourVector() + Tb_R1.GetFourVector()).BoostVector();
+    // Step 2: Boost top and antitop 4-vectors into ttbar CM frame
+    topInTTbar = Ta_R1.GetFourVector();
+    topInTTbar.Boost(boostToTTbarCM);
+
+    antitopInTTbar = Tb_R1.GetFourVector();
+    antitopInTTbar.Boost(boostToTTbarCM);
+
+    // Step 3: Calculate boost vectors to go from ttbar CM frame to each top rest frame
+    // (negative because BoostVector() gives boost from rest to lab frame)
+    boostToTopRest = -topInTTbar.BoostVector();
+    boostToAntitopRest = -antitopInTTbar.BoostVector();
+
+    // Step 4: Boost leptons into the ttbar CM frame first
+    lep_boosteda = La_R1.GetFourVector();
+    lep_boosteda.Boost(boostToTTbarCM);
+
+    lep_boostedb = Lb_R1.GetFourVector();
+    lep_boostedb.Boost(boostToTTbarCM);
+
+    // Step 5: Boost leptons from ttbar CM frame into their respective parent top rest frames
+    // Assuming lep1 comes from antitop and lep2 from top (or adjust accordingly)
+    lep_boosteda.Boost(boostToTopRest);
+    lep_boostedb.Boost(boostToAntitopRest);
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+    
     chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
-    tb_vec.SetXYZ(Tb_R1.GetFourVector().Px(),Tb_R1.GetFourVector().Py(),Tb_R1.GetFourVector().Pz());
-
-    la_ta.SetXYZ(La_R1.GetFourVector(Ta_R1).Px(),La_R1.GetFourVector(Ta_R1).Py(),La_R1.GetFourVector(Ta_R1).Pz());
-    lb_tb.SetXYZ(Lb_R1.GetFourVector(Tb_R1).Px(),Lb_R1.GetFourVector(Tb_R1).Py(),-Lb_R1.GetFourVector(Tb_R1).Pz());
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
     chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+    TVector3 boostVec, boostVeca, boostVecb;
+  
+    boostVec.SetXYZ(0, 0, 0);
+    boostVeca.SetXYZ(0, 0, 0);
+    boostVecb.SetXYZ(0, 0, 0);
+
+    boostVec = -(Ta_R1.GetFourVector() + Tb_R1.GetFourVector()).BoostVector();
+    lep_boosteda = La_R1.GetFourVector();
+    lep_boostedb = Lb_R1.GetFourVector();
+    boostVeca = top.BoostVector();
+    boostVecb = antitop.BoostVector();
+    lep_boosteda.Boost(boostVec);
+    lep_boostedb.Boost(boostVec);
+    lep_boosteda.Boost(boostVeca);
+    lep_boostedb.Boost(boostVecb);
+
+    TVector3 leptopa, leptopb;
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+
+    nchel = leptopa.Dot(leptopb)/(leptopa.Mag()*leptopb.Mag());
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
 
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E();
@@ -893,6 +1006,7 @@ void run(std::string sample){
     MWb = Wb_R2.GetMass();
     Mll = (La_R2+Lb_R2).GetMass();
     Mllbb = (La_R2+Lb_R2+Ba_R2+Bb_R2).GetMass();
+    phitt = Ta_R2.GetFourVector().Phi() - Tb_R2.GetFourVector().Phi(); 
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -904,15 +1018,81 @@ void run(std::string sample){
       MtL = Mta;
       MDt = Mtb - Mta;
     }
-    la_ta.SetXYZ(La_R2.GetFourVector(Ta_R2).Px(),La_R2.GetFourVector(Ta_R2).Py(),La_R2.GetFourVector(Ta_R2).Pz());
-    lb_tb.SetXYZ(Lb_R2.GetFourVector(Tb_R2).Px(),Lb_R2.GetFourVector(Tb_R2).Py(),Lb_R2.GetFourVector(Tb_R2).Pz());
+
+    
+
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+    topInTTbar.SetPxPyPzE(0, 0, 0, 0);
+    antitopInTTbar.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM.SetXYZ(0, 0, 0);
+    boostToTopRest.SetXYZ(0, 0, 0);
+    boostToAntitopRest.SetXYZ(0, 0, 0);
+
+    // Initialize TLorentzVector to zero
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM = -(Ta_R2.GetFourVector() + Tb_R2.GetFourVector()).BoostVector();
+    // Step 2: Boost top and antitop 4-vectors into ttbar CM frame
+    topInTTbar = Ta_R2.GetFourVector();
+    topInTTbar.Boost(boostToTTbarCM);
+
+    antitopInTTbar = Tb_R2.GetFourVector();
+    antitopInTTbar.Boost(boostToTTbarCM);
+
+    // Step 3: Calculate boost vectors to go from ttbar CM frame to each top rest frame
+    // (negative because BoostVector() gives boost from rest to lab frame)
+    boostToTopRest = -topInTTbar.BoostVector();
+    boostToAntitopRest = -antitopInTTbar.BoostVector();
+
+    // Step 4: Boost leptons into the ttbar CM frame first
+    lep_boosteda = La_R2.GetFourVector();
+    lep_boosteda.Boost(boostToTTbarCM);
+
+    lep_boostedb = Lb_R2.GetFourVector();
+    lep_boostedb.Boost(boostToTTbarCM);
+
+    // Step 5: Boost leptons from ttbar CM frame into their respective parent top rest frames
+    // Assuming lep1 comes from antitop and lep2 from top (or adjust accordingly)
+    lep_boosteda.Boost(boostToTopRest);
+    lep_boostedb.Boost(boostToAntitopRest);
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+    
     chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
 
-    tb_vec.SetXYZ(Tb_R2.GetFourVector().Px(),Tb_R2.GetFourVector().Py(),Tb_R2.GetFourVector().Pz());
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
-    la_ta.SetXYZ(La_R2.GetFourVector(Ta_R2).Px(),La_R2.GetFourVector(Ta_R2).Py(),La_R2.GetFourVector(Ta_R2).Pz());
-    lb_tb.SetXYZ(Lb_R2.GetFourVector(Tb_R2).Px(),Lb_R2.GetFourVector(Tb_R2).Py(),-Lb_R2.GetFourVector(Tb_R2).Pz());
     chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+  
+    boostVec.SetXYZ(0, 0, 0);
+    boostVeca.SetXYZ(0, 0, 0);
+    boostVecb.SetXYZ(0, 0, 0);
+
+    boostVec = -(Ta_R2.GetFourVector() + Tb_R2.GetFourVector()).BoostVector();
+    lep_boosteda = La_R2.GetFourVector();
+    lep_boostedb = Lb_R2.GetFourVector();
+    boostVeca = top.BoostVector();
+    boostVecb = antitop.BoostVector();
+    lep_boosteda.Boost(boostVec);
+    lep_boostedb.Boost(boostVec);
+    lep_boosteda.Boost(boostVeca);
+    lep_boostedb.Boost(boostVecb);
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+
+    nchel = leptopa.Dot(leptopb)/(leptopa.Mag()*leptopb.Mag());
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
+
+
 
     Eb_ta = Ba_R2.GetFourVector(Ta_R2).E();
     Eb_tb = Bb_R2.GetFourVector(Tb_R2).E();
@@ -941,6 +1121,7 @@ void run(std::string sample){
     MWb = Wb_R3.GetMass();
     Mll = (La_R3+Lb_R3).GetMass();
     Mllbb = (La_R3+Lb_R3+Ba_R3+Bb_R3).GetMass();
+    phitt = Ta_R3.GetFourVector().Phi() - Tb_R3.GetFourVector().Phi(); 
 
     if(Mta > Mtb){
       MtH = Mta;
@@ -953,14 +1134,77 @@ void run(std::string sample){
       MDt = Mtb - Mta;
     }
     
-    la_ta.SetXYZ(La_R3.GetFourVector(Ta_R3).Px(),La_R3.GetFourVector(Ta_R3).Py(),La_R3.GetFourVector(Ta_R3).Pz());
-    lb_tb.SetXYZ(Lb_R3.GetFourVector(Tb_R3).Px(),Lb_R3.GetFourVector(Tb_R3).Py(),Lb_R3.GetFourVector(Tb_R3).Pz());
-    chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    tb_vec.SetXYZ(Tb_R3.GetFourVector().Px(),Tb_R3.GetFourVector().Py(),Tb_R3.GetFourVector().Pz());
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+    topInTTbar.SetPxPyPzE(0, 0, 0, 0);
+    antitopInTTbar.SetPxPyPzE(0, 0, 0, 0);
 
-    la_ta.SetXYZ(La_R3.GetFourVector(Ta_R3).Px(),La_R3.GetFourVector(Ta_R3).Py(),La_R3.GetFourVector(Ta_R3).Pz());
-    lb_tb.SetXYZ(Lb_R3.GetFourVector(Tb_R3).Px(),Lb_R3.GetFourVector(Tb_R3).Py(),-Lb_R3.GetFourVector(Tb_R3).Pz());
+    boostToTTbarCM.SetXYZ(0, 0, 0);
+    boostToTopRest.SetXYZ(0, 0, 0);
+    boostToAntitopRest.SetXYZ(0, 0, 0);
+
+    // Initialize TLorentzVector to zero
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM = -(Ta_R3.GetFourVector() + Tb_R3.GetFourVector()).BoostVector();
+    // Step 2: Boost top and antitop 4-vectors into ttbar CM frame
+    topInTTbar = Ta_R3.GetFourVector();
+    topInTTbar.Boost(boostToTTbarCM);
+
+    antitopInTTbar = Tb_R3.GetFourVector();
+    antitopInTTbar.Boost(boostToTTbarCM);
+
+    // Step 3: Calculate boost vectors to go from ttbar CM frame to each top rest frame
+    // (negative because BoostVector() gives boost from rest to lab frame)
+    boostToTopRest = -topInTTbar.BoostVector();
+    boostToAntitopRest = -antitopInTTbar.BoostVector();
+
+    // Step 4: Boost leptons into the ttbar CM frame first
+    lep_boosteda = La_R3.GetFourVector();
+    lep_boosteda.Boost(boostToTTbarCM);
+
+    lep_boostedb = Lb_R3.GetFourVector();
+    lep_boostedb.Boost(boostToTTbarCM);
+
+    // Step 5: Boost leptons from ttbar CM frame into their respective parent top rest frames
+    // Assuming lep1 comes from antitop and lep2 from top (or adjust accordingly)
+    lep_boosteda.Boost(boostToTopRest);
+    lep_boostedb.Boost(boostToAntitopRest);
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+    
+    chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
+
     chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+  
+    boostVec.SetXYZ(0, 0, 0);
+    boostVeca.SetXYZ(0, 0, 0);
+    boostVecb.SetXYZ(0, 0, 0);
+
+    boostVec = -(Ta_R3.GetFourVector() + Tb_R3.GetFourVector()).BoostVector();
+    lep_boosteda = La_R3.GetFourVector();
+    lep_boostedb = Lb_R3.GetFourVector();
+    boostVeca = top.BoostVector();
+    boostVecb = antitop.BoostVector();
+    lep_boosteda.Boost(boostVec);
+    lep_boostedb.Boost(boostVec);
+    lep_boosteda.Boost(boostVeca);
+    lep_boostedb.Boost(boostVecb);
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+
+    nchel = leptopa.Dot(leptopb)/(leptopa.Mag()*leptopb.Mag());
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
+
 
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E();
     Eb_tb = Bb_R3.GetFourVector(Tb_R3).E();
@@ -989,6 +1233,7 @@ void run(std::string sample){
     MWb = Wb_R4.GetMass();
     Mll = (La_R4+Lb_R4).GetMass();
     Mllbb = (La_R4+Lb_R4+Ba_R4+Bb_R4).GetMass();
+    phitt = Ta_R4.GetFourVector().Phi() - Tb_R4.GetFourVector().Phi(); 
 
 
     if(Mta > Mtb){
@@ -1002,14 +1247,77 @@ void run(std::string sample){
       MDt = Mtb - Mta;
     }
     
-    la_ta.SetXYZ(La_R4.GetFourVector(Ta_R4).Px(),La_R4.GetFourVector(Ta_R4).Py(),La_R4.GetFourVector(Ta_R4).Pz());
-    lb_tb.SetXYZ(Lb_R4.GetFourVector(Tb_R4).Px(),Lb_R4.GetFourVector(Tb_R4).Py(),Lb_R4.GetFourVector(Tb_R4).Pz());
-    chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
-    tb_vec.SetXYZ(Tb_R4.GetFourVector().Px(),Tb_R4.GetFourVector().Py(),Tb_R4.GetFourVector().Pz());
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+    topInTTbar.SetPxPyPzE(0, 0, 0, 0);
+    antitopInTTbar.SetPxPyPzE(0, 0, 0, 0);
 
-    la_ta.SetXYZ(La_R4.GetFourVector(Ta_R4).Px(),La_R4.GetFourVector(Ta_R4).Py(),La_R4.GetFourVector(Ta_R4).Pz());
-    lb_tb.SetXYZ(Lb_R4.GetFourVector(Tb_R4).Px(),Lb_R4.GetFourVector(Tb_R4).Py(),-Lb_R4.GetFourVector(Tb_R4).Pz());
+    boostToTTbarCM.SetXYZ(0, 0, 0);
+    boostToTopRest.SetXYZ(0, 0, 0);
+    boostToAntitopRest.SetXYZ(0, 0, 0);
+
+    // Initialize TLorentzVector to zero
+    lep_boosteda.SetPxPyPzE(0, 0, 0, 0);
+    lep_boostedb.SetPxPyPzE(0, 0, 0, 0);
+
+    boostToTTbarCM = -(Ta_R4.GetFourVector() + Tb_R4.GetFourVector()).BoostVector();
+    // Step 2: Boost top and antitop 4-vectors into ttbar CM frame
+    topInTTbar = Ta_R4.GetFourVector();
+    topInTTbar.Boost(boostToTTbarCM);
+
+    antitopInTTbar = Tb_R4.GetFourVector();
+    antitopInTTbar.Boost(boostToTTbarCM);
+
+    // Step 3: Calculate boost vectors to go from ttbar CM frame to each top rest frame
+    // (negative because BoostVector() gives boost from rest to lab frame)
+    boostToTopRest = -topInTTbar.BoostVector();
+    boostToAntitopRest = -antitopInTTbar.BoostVector();
+
+    // Step 4: Boost leptons into the ttbar CM frame first
+    lep_boosteda = La_R4.GetFourVector();
+    lep_boosteda.Boost(boostToTTbarCM);
+
+    lep_boostedb = Lb_R4.GetFourVector();
+    lep_boostedb.Boost(boostToTTbarCM);
+
+    // Step 5: Boost leptons from ttbar CM frame into their respective parent top rest frames
+    // Assuming lep1 comes from antitop and lep2 from top (or adjust accordingly)
+    lep_boosteda.Boost(boostToTopRest);
+    lep_boostedb.Boost(boostToAntitopRest);
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+    
+    chel = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+    la_ta.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    lb_tb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
+
     chan = la_ta.Dot(lb_tb)/(la_ta.Mag()*lb_tb.Mag());
+
+  
+    boostVec.SetXYZ(0, 0, 0);
+    boostVeca.SetXYZ(0, 0, 0);
+    boostVecb.SetXYZ(0, 0, 0);
+
+    boostVec = -(Ta_R4.GetFourVector() + Tb_R4.GetFourVector()).BoostVector();
+    lep_boosteda = La_R4.GetFourVector();
+    lep_boostedb = Lb_R4.GetFourVector();
+    boostVeca = top.BoostVector();
+    boostVecb = antitop.BoostVector();
+    lep_boosteda.Boost(boostVec);
+    lep_boostedb.Boost(boostVec);
+    lep_boosteda.Boost(boostVeca);
+    lep_boostedb.Boost(boostVecb);
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),lep_boostedb.Pz());
+
+    nchel = leptopa.Dot(leptopb)/(leptopa.Mag()*leptopb.Mag());
+
+    leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
+    leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
+
 
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E();
     Eb_tb = Bb_R4.GetFourVector(Tb_R4).E();
