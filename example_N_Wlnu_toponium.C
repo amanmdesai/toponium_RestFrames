@@ -409,9 +409,7 @@ void run(std::string sample){
 
     const HistPlotVar& MDt    = histPlot->GetNewVar("MDt", "M_{tH}-M_{tL}|", -5., 5.);
     const HistPlotVar& phitt    = histPlot->GetNewVar("phitt", "#Phi(t,t)", -6., 6.);
-    const HistPlotVar& D_phill = histPlot->GetNewVar("D_phill","#phi_{#it{l}a} - #phi_{#it{l}b}", 
-       -acos(-1.)/2., acos(-1.)/2.);
-
+    const HistPlotVar& phill = histPlot->GetNewVar("phill","#phi_{#it{l}a} - #phi_{#it{l}b}", -5,5);
 
     const HistPlotVar& chel    = histPlot->GetNewVar("chel", "c_{hel}", -1., 1.);
     const HistPlotVar& chan    = histPlot->GetNewVar("chan", "c_{han}", -1., 1.);
@@ -448,7 +446,7 @@ void run(std::string sample){
     histPlot->AddPlot(MtL, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWa, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MWb, cat_R1+cat_R2+cat_R3+cat_R4);
-    histPlot->AddPlot(D_phill, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(phill, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Meta, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(MDt, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(Mtt,   cat_R1+cat_R2+cat_R3+cat_R4);
@@ -473,6 +471,8 @@ void run(std::string sample){
     histPlot->AddPlot(nchel, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(phitt, cat_R1+cat_R2+cat_R3+cat_R4);
 
+    histPlot->AddPlot(phill, phitt, cat_R1);
+    histPlot->AddPlot(phill, nchel, cat_R1);
     histPlot->AddPlot(phitt, nchel, cat_R1);
     histPlot->AddPlot(Eb_ta, nchel, cat_R1);
     histPlot->AddPlot(cosWa, nchel, cat_R1);
@@ -482,6 +482,15 @@ void run(std::string sample){
     histPlot->AddPlot(Mll, nchel, cat_R1);
     histPlot->AddPlot(Mllbb, nchel, cat_R1);
     histPlot->AddPlot(Mtt, nchel, cat_R1);
+
+    histPlot->AddPlot(Eb_ta, phitt, cat_R1);
+    histPlot->AddPlot(cosWa, phitt, cat_R1);
+    histPlot->AddPlot(cosWb, phitt, cat_R1);
+    histPlot->AddPlot(costa, phitt, cat_R1);
+    histPlot->AddPlot(costb, phitt, cat_R1);
+    histPlot->AddPlot(Mll, phitt, cat_R1);
+    histPlot->AddPlot(Mllbb, phitt, cat_R1);
+    histPlot->AddPlot(Mtt, phitt, cat_R1);
 
 
 
@@ -528,6 +537,8 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R1);
     histPlot->AddPlot(Mtb, MWb, cat_R1);
 
+    histPlot->AddPlot(phill, phitt, cat_R2);
+    histPlot->AddPlot(phill, nchel, cat_R2);
     histPlot->AddPlot(phitt, nchel, cat_R2);
     histPlot->AddPlot(Eb_ta, nchel, cat_R2);
     histPlot->AddPlot(cosWa, nchel, cat_R2);
@@ -537,6 +548,17 @@ void run(std::string sample){
     histPlot->AddPlot(Mll, nchel, cat_R2);
     histPlot->AddPlot(Mllbb, nchel, cat_R2);
     histPlot->AddPlot(Mtt, nchel, cat_R2);
+
+
+
+    histPlot->AddPlot(Eb_ta, phitt, cat_R2);
+    histPlot->AddPlot(cosWa, phitt, cat_R2);
+    histPlot->AddPlot(cosWb, phitt, cat_R2);
+    histPlot->AddPlot(costa, phitt, cat_R2);
+    histPlot->AddPlot(costb, phitt, cat_R2);
+    histPlot->AddPlot(Mll, phitt, cat_R2);
+    histPlot->AddPlot(Mllbb, phitt, cat_R2);
+    histPlot->AddPlot(Mtt, phitt, cat_R2);
 
 
 
@@ -586,6 +608,8 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R2);
     histPlot->AddPlot(Mtb, MWb, cat_R2);
 
+    histPlot->AddPlot(phill, phitt, cat_R3);
+    histPlot->AddPlot(phill, nchel, cat_R3);
     histPlot->AddPlot(phitt, nchel, cat_R3);
     histPlot->AddPlot(Eb_ta, nchel, cat_R3);
     histPlot->AddPlot(cosWa, nchel, cat_R3);
@@ -596,6 +620,14 @@ void run(std::string sample){
     histPlot->AddPlot(Mllbb, nchel, cat_R3);
     histPlot->AddPlot(Mtt, nchel, cat_R3);
 
+    histPlot->AddPlot(Eb_ta, phitt, cat_R3);
+    histPlot->AddPlot(cosWa, phitt, cat_R3);
+    histPlot->AddPlot(cosWb, phitt, cat_R3);
+    histPlot->AddPlot(costa, phitt, cat_R3);
+    histPlot->AddPlot(costb, phitt, cat_R3);
+    histPlot->AddPlot(Mll, phitt, cat_R3);
+    histPlot->AddPlot(Mllbb, phitt, cat_R3);
+    histPlot->AddPlot(Mtt, phitt, cat_R3);
 
     histPlot->AddPlot(Eb_ta, chel, cat_R3);
     histPlot->AddPlot(Eb_ta, chan, cat_R3);
@@ -643,6 +675,9 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R3);
     histPlot->AddPlot(Mtb, MWb, cat_R3);
 
+
+    histPlot->AddPlot(phill, phitt, cat_R4);
+    histPlot->AddPlot(phill, nchel, cat_R4);
     histPlot->AddPlot(phitt, nchel, cat_R4);
     histPlot->AddPlot(Eb_ta, nchel, cat_R4);
     histPlot->AddPlot(cosWa, nchel, cat_R4);
@@ -653,6 +688,14 @@ void run(std::string sample){
     histPlot->AddPlot(Mllbb, nchel, cat_R4);
     histPlot->AddPlot(Mtt, nchel, cat_R4);
 
+    histPlot->AddPlot(Eb_ta, phitt, cat_R4);
+    histPlot->AddPlot(cosWa, phitt, cat_R4);
+    histPlot->AddPlot(cosWb, phitt, cat_R4);
+    histPlot->AddPlot(costa, phitt, cat_R4);
+    histPlot->AddPlot(costb, phitt, cat_R4);
+    histPlot->AddPlot(Mll, phitt, cat_R4);
+    histPlot->AddPlot(Mllbb, phitt, cat_R4);
+    histPlot->AddPlot(Mtt, phitt, cat_R4);
 
     histPlot->AddPlot(Eb_ta, chel, cat_R4);
     histPlot->AddPlot(Eb_ta, chan, cat_R4);
@@ -961,8 +1004,8 @@ void run(std::string sample){
     boostVec = -(Ta_R1.GetFourVector() + Tb_R1.GetFourVector()).BoostVector();
     lep_boosteda = La_R1.GetFourVector();
     lep_boostedb = Lb_R1.GetFourVector();
-    boostVeca = top.BoostVector();
-    boostVecb = antitop.BoostVector();
+    boostVeca = Ta_R1.GetFourVector().BoostVector();
+    boostVecb = Tb_R1.GetFourVector().BoostVector();
     lep_boosteda.Boost(boostVec);
     lep_boostedb.Boost(boostVec);
     lep_boosteda.Boost(boostVeca);
@@ -994,7 +1037,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
     
-    D_phill = La_R1.GetFourVector(TT_R1).Phi() - Lb_R1.GetFourVector(TT_R1).Phi();
+    phill = La_R1.GetFourVector().Phi() - Lb_R1.GetFourVector().Phi();
 
     histPlot->Fill(cat_R1);
 
@@ -1077,8 +1120,8 @@ void run(std::string sample){
     boostVec = -(Ta_R2.GetFourVector() + Tb_R2.GetFourVector()).BoostVector();
     lep_boosteda = La_R2.GetFourVector();
     lep_boostedb = Lb_R2.GetFourVector();
-    boostVeca = top.BoostVector();
-    boostVecb = antitop.BoostVector();
+    boostVeca = Ta_R2.GetFourVector().BoostVector();
+    boostVecb = Tb_R2.GetFourVector().BoostVector();
     lep_boosteda.Boost(boostVec);
     lep_boostedb.Boost(boostVec);
     lep_boosteda.Boost(boostVeca);
@@ -1109,7 +1152,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R2.GetFourVector(TT_R2).Phi() - Lb_R2.GetFourVector(TT_R2).Phi();
+    phill = La_R2.GetFourVector().Phi() - Lb_R2.GetFourVector().Phi();
 
     histPlot->Fill(cat_R2);
 
@@ -1190,8 +1233,8 @@ void run(std::string sample){
     boostVec = -(Ta_R3.GetFourVector() + Tb_R3.GetFourVector()).BoostVector();
     lep_boosteda = La_R3.GetFourVector();
     lep_boostedb = Lb_R3.GetFourVector();
-    boostVeca = top.BoostVector();
-    boostVecb = antitop.BoostVector();
+    boostVeca = Ta_R3.GetFourVector().BoostVector();
+    boostVecb = Tb_R3.GetFourVector().BoostVector();
     lep_boosteda.Boost(boostVec);
     lep_boostedb.Boost(boostVec);
     lep_boosteda.Boost(boostVeca);
@@ -1221,7 +1264,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R3.GetFourVector(TT_R3).Phi() - Lb_R3.GetFourVector(TT_R3).Phi();
+    phill = La_R3.GetFourVector().Phi() - Lb_R3.GetFourVector().Phi();
 
     histPlot->Fill(cat_R3);
 
@@ -1303,8 +1346,8 @@ void run(std::string sample){
     boostVec = -(Ta_R4.GetFourVector() + Tb_R4.GetFourVector()).BoostVector();
     lep_boosteda = La_R4.GetFourVector();
     lep_boostedb = Lb_R4.GetFourVector();
-    boostVeca = top.BoostVector();
-    boostVecb = antitop.BoostVector();
+    boostVeca = Ta_R4.GetFourVector().BoostVector();
+    boostVecb = Tb_R4.GetFourVector().BoostVector();
     lep_boosteda.Boost(boostVec);
     lep_boostedb.Boost(boostVec);
     lep_boosteda.Boost(boostVeca);
@@ -1334,7 +1377,7 @@ void run(std::string sample){
     DcosWa = asin(sqrt(1.-cosWa*cosWa)*cosWagen-sqrt(1.-cosWagen*cosWagen)*cosWa);
     DcosWb = asin(sqrt(1.-cosWb*cosWb)*cosWbgen-sqrt(1.-cosWbgen*cosWbgen)*cosWb);
 
-    D_phill = La_R4.GetFourVector(TT_R4).Phi() - Lb_R4.GetFourVector(TT_R4).Phi();
+    phill = La_R4.GetFourVector().Phi() - Lb_R4.GetFourVector().Phi();
 
     histPlot->Fill(cat_R4);
   
