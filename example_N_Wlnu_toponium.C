@@ -416,6 +416,18 @@ void run(std::string sample){
 
     const HistPlotVar& nchel    = histPlot->GetNewVar("nchel", "nc_{hel}", -1., 1.);
 
+    const HistPlotVar& hist_mttbar_1_1 = histPlot->GetNewVar("hist_mttbar_1_1", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_1_2 = histPlot->GetNewVar("hist_mttbar_1_2", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_1_3 = histPlot->GetNewVar("hist_mttbar_1_3", "M_{t #bar{t}}", 200., 600.);
+
+    const HistPlotVar& hist_mttbar_2_1 = histPlot->GetNewVar("hist_mttbar_2_1", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_2_2 = histPlot->GetNewVar("hist_mttbar_2_2", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_2_3 = histPlot->GetNewVar("hist_mttbar_2_3", "M_{t #bar{t}}", 200., 600.);
+
+    const HistPlotVar& hist_mttbar_3_1 = histPlot->GetNewVar("hist_mttbar_3_1", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_3_2 = histPlot->GetNewVar("hist_mttbar_3_2", "M_{t #bar{t}}", 200., 600.);
+    const HistPlotVar& hist_mttbar_3_3 = histPlot->GetNewVar("hist_mttbar_3_3", "M_{t #bar{t}}", 200., 600.);
+
     const HistPlotVar& Meta    = histPlot->GetNewVar("Meta", "M_{t #bar{t}} / M_{toponium}", 0., 4.);
     const HistPlotVar& Mtt    = histPlot->GetNewVar("Mtt", "M_{t #bar{t}}", 0., 800.);
     const HistPlotVar& Mll   = histPlot->GetNewVar("Mll", "M_{#it{l}_{a}#it{l}_{b}}", 0., 300.);
@@ -470,6 +482,18 @@ void run(std::string sample){
   
     histPlot->AddPlot(nchel, cat_R1+cat_R2+cat_R3+cat_R4);
     histPlot->AddPlot(phitt, cat_R1+cat_R2+cat_R3+cat_R4);
+
+    histPlot->AddPlot(hist_mttbar_1_1, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_1_2, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_1_3, cat_R1+cat_R2+cat_R3+cat_R4);
+
+    histPlot->AddPlot(hist_mttbar_2_1, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_2_2, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_2_3, cat_R1+cat_R2+cat_R3+cat_R4);
+
+    histPlot->AddPlot(hist_mttbar_3_1, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_3_2, cat_R1+cat_R2+cat_R3+cat_R4);
+    histPlot->AddPlot(hist_mttbar_3_3, cat_R1+cat_R2+cat_R3+cat_R4);
 
     histPlot->AddPlot(phill, phitt, cat_R1);
     histPlot->AddPlot(phill, nchel, cat_R1);
@@ -760,7 +784,8 @@ void run(std::string sample){
       tree->GetEntry(entry);
   
       //eventweight = cross_section*eventweight*lumi/totaleventweight;
-      eventweight = eventweight*lumi;
+      if(sample == "toponium.root"){eventweight = 1./133;}
+      if(sample == "ttbar.root"){eventweight = 1.;}
 
       top.SetPxPyPzE(0,0,0,0);
       antitop.SetPxPyPzE(0,0,0,0);
@@ -1021,6 +1046,47 @@ void run(std::string sample){
     leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
     leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
+// Δφ bin 1: [-6, -2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_1_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_1_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_1_3 = Mtt;
+}
+
+// Δφ bin 2: [-2, 2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_2_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_2_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_2_3 = Mtt;
+}
+
+// Δφ bin 3: [2, 6]
+// nchel bin 1: [-1, -0.4]
+if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_3_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_3_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_3_3 = Mtt;
+}
 
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E();
     Eb_tb = Bb_R1.GetFourVector(Tb_R1).E();
@@ -1135,6 +1201,47 @@ void run(std::string sample){
     leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
     leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
+// Δφ bin 1: [-6, -2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_1_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_1_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_1_3 = Mtt;
+}
+
+// Δφ bin 2: [-2, 2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_2_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_2_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_2_3 = Mtt;
+}
+
+// Δφ bin 3: [2, 6]
+// nchel bin 1: [-1, -0.4]
+if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_3_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_3_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_3_3 = Mtt;
+}
 
 
     Eb_ta = Ba_R2.GetFourVector(Ta_R2).E();
@@ -1248,6 +1355,47 @@ void run(std::string sample){
     leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
     leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
+// Δφ bin 1: [-6, -2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_1_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_1_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_1_3 = Mtt;
+}
+
+// Δφ bin 2: [-2, 2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_2_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_2_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_2_3 = Mtt;
+}
+
+// Δφ bin 3: [2, 6]
+// nchel bin 1: [-1, -0.4]
+if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_3_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_3_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_3_3 = Mtt;
+}
 
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E();
     Eb_tb = Bb_R3.GetFourVector(Tb_R3).E();
@@ -1361,6 +1509,47 @@ void run(std::string sample){
     leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
     leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
+// Δφ bin 1: [-6, -2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_1_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_1_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_1_3 = Mtt;
+}
+
+// Δφ bin 2: [-2, 2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_2_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_2_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_2_3 = Mtt;
+}
+
+// Δφ bin 3: [2, 6]
+// nchel bin 1: [-1, -0.4]
+if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_3_1 = Mtt;
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_3_2 = Mtt;
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_3_3 = Mtt;
+}
 
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E();
     Eb_tb = Bb_R4.GetFourVector(Tb_R4).E();

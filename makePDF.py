@@ -125,6 +125,21 @@ def Plot(sample):
         c = ROOT.TCanvas()#"","",800,600)
         c.SetLeftMargin(0.2)
         c.SetBottomMargin(0.2)
+        text1 = ""
+        text2 = ""
+
+        if "hist_mttbar" in obj: 
+            deltaphi_bins = [(-6, -2), (-2, 2), (2, 6)]
+            nchel_bins    = [(-1, -0.4), (-0.4, 0.4), (0.4, 1)]
+            parts = obj.split("_")
+            i = int(parts[2]) - 1  # Δφ bin index (0-based)
+            j = int(parts[3]) - 1  # Nchel bin index (0-based)
+            
+            # Build text from bin ranges
+            dp_low, dp_high = deltaphi_bins[i]
+            nc_low, nc_high = nchel_bins[j]
+            text1 = f"{dp_low} < \\Delta\\Phi (tt) < {dp_high}"
+            text2 = f"{nc_low} < Nchel < {nc_high}"
 
         histA.Draw("hist")
         histB.Draw("histsame")
@@ -132,11 +147,18 @@ def Plot(sample):
         histD.Draw("histsame")
         legend.Draw()
 
+        title_text1 = ROOT.TLatex()
+        title_text1.SetNDC()
+        title_text1.SetTextSize(0.04)
+        title_text1.SetTextColor(2)
+
+        title_text1.DrawLatex(0.25, 0.80, text1)
+        title_text1.DrawLatex(0.25, 0.76, text2)
 
         title_text = ROOT.TLatex()
         title_text.SetNDC()
         title_text.SetTextSize(0.05)
-        title_text.DrawLatex(0.25, 0.82, sample)
+        title_text.DrawLatex(0.25, 0.84, sample)
 
 
         c.Update()
