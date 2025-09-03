@@ -441,15 +441,15 @@ void run(std::string sample){
     const HistPlotVar& costb  = histPlot->GetNewVar("costb","cos #theta_{top b}", -1., 1.);
     const HistPlotVar& cosWa  = histPlot->GetNewVar("cosWa","cos #theta_{W a}", -1., 1.);
     const HistPlotVar& cosWb  = histPlot->GetNewVar("cosWb","cos #theta_{W b}", -1., 1.);
-    const HistPlotVar& Dcostt = histPlot->GetNewVar("Dcostt","#theta_{t #bar{t}} - #theta_{t #bar{t}}^{gen}", 
+    const HistPlotVar& Dcostt = histPlot->GetNewVar("Dcostt","#theta_{t #bar{t}}", 
                 -acos(-1.)/2., acos(-1.)/2.);
-    const HistPlotVar& Dcosta = histPlot->GetNewVar("Dcosta","#theta_{top a} - #theta_{top a}^{gen}", 
+    const HistPlotVar& Dcosta = histPlot->GetNewVar("Dcosta","#theta_{top a}", 
                 -acos(-1.)/2., acos(-1.)/2.);
-    const HistPlotVar& Dcostb = histPlot->GetNewVar("Dcostb","#theta_{top b} - #theta_{top b}^{gen}", 
+    const HistPlotVar& Dcostb = histPlot->GetNewVar("Dcostb","#theta_{top b}", 
                 -acos(-1.)/2., acos(-1.)/2.);
-    const HistPlotVar& DcosWa = histPlot->GetNewVar("DcosWa","#theta_{W a} - #theta_{W a}^{gen}", 
+    const HistPlotVar& DcosWa = histPlot->GetNewVar("DcosWa","#theta_{W a}", 
                 -acos(-1.)/2., acos(-1.)/2.);
-    const HistPlotVar& DcosWb = histPlot->GetNewVar("DcosWb","#theta_{W b} - #theta_{W b}^{gen}", 
+    const HistPlotVar& DcosWb = histPlot->GetNewVar("DcosWb","#theta_{W b}", 
                 -acos(-1.)/2., acos(-1.)/2.);
 
     histPlot->AddPlot(Mta, cat_R1+cat_R2+cat_R3+cat_R4);
@@ -834,13 +834,17 @@ void run(std::string sample){
         
         //leptons
         if(pid->at(i) == 11 || pid->at(i) == 13){
-          lep_count+=1;
-          lep1.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+          if(lep1.E() ==0){
+            lep_count+=1;
+            lep1.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+          }
         }
 
         if(pid->at(i) == -11 || pid->at(i) == -13){
-          lep_count+=1;
-          lep2.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+          if(lep2.E() ==0){
+            lep_count+=1;
+            lep2.SetPxPyPzE(px->at(i),py->at(i),pz->at(i),e->at(i));
+          }
         }
         // only considering two leading leptons
 
@@ -859,17 +863,25 @@ void run(std::string sample){
       }
 
     }//particle loop
+
     if(bjet_count < 2){continue;}
     if(lep_count < 2){continue;}
 
     b1.SetPxPyPzE(px->at(b_index1),py->at(b_index1),pz->at(b_index1),e->at(b_index1));
     b2.SetPxPyPzE(px->at(b_index2),py->at(b_index2),pz->at(b_index2),e->at(b_index2));
     
-    if(lep1.Pt() < 15 || lep2.Pt() < 15){continue;}
+    // if(lep1.Pt() < 5 || lep2.Pt() < 5){continue;}
+    // if(abs(lep1.Eta()) > 2.5 || abs(lep1.Eta()) > 2.5){continue;}
+
+    // if(b1.Pt() < 5 || b2.Pt() < 5){continue;}
+    // if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
+    
+     if(lep1.Pt() < 15 || lep2.Pt() < 15){continue;}
     if(abs(lep1.Eta()) > 2.5 || abs(lep1.Eta()) > 2.5){continue;}
 
     if(b1.Pt() < 20 || b2.Pt() < 20){continue;}
     if(abs(b1.Eta()) > 2.5 || abs(b2.Eta()) > 2.5){continue;}
+       
     
     if(top.M() > 0 && antitop.M() > 0){
       hist_toponium_mass->Fill((top+antitop).M());
