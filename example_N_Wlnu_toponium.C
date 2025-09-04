@@ -765,7 +765,17 @@ void run(std::string sample){
     histPlot->AddPlot(Mta, MWa, cat_R4);
     histPlot->AddPlot(Mtb, MWb, cat_R4);
 
+    TH1 *histNmttbar_1_1 = new TH1D("histNmttbar_1_1", "histNmttbar_1_1", 200, 100, 1000);
+    TH1 *histNmttbar_1_2 = new TH1D("histNmttbar_1_2", "histNmttbar_1_2", 200, 100, 1000);
+    TH1 *histNmttbar_1_3 = new TH1D("histNmttbar_1_3", "histNmttbar_1_3", 200, 100, 1000);
 
+    TH1 *histNmttbar_2_1 = new TH1D("histNmttbar_2_1", "histNmttbar_2_1", 200, 100, 1000);
+    TH1 *histNmttbar_2_2 = new TH1D("histNmttbar_2_2", "histNmttbar_2_2", 200, 100, 1000);
+    TH1 *histNmttbar_2_3 = new TH1D("histNmttbar_2_3", "histNmttbar_2_3", 200, 100, 1000);
+
+    TH1 *histNmttbar_3_1 = new TH1D("histNmttbar_3_1", "histNmttbar_3_1", 200, 100, 1000);
+    TH1 *histNmttbar_3_2 = new TH1D("histNmttbar_3_2", "histNmttbar_3_2", 200, 100, 1000);
+    TH1 *histNmttbar_3_3 = new TH1D("histNmttbar_3_3", "histNmttbar_3_3", 200, 100, 1000);
     // some hists
 
     TH1 *hist_toponium_mass = new TH1D("mass","mass",200,200,1000);
@@ -777,15 +787,15 @@ void run(std::string sample){
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
     TVector3 la_ta, lb_tb, tb_vec;
-
+    Float_t weight; 
     for(Int_t entry=0; entry < total_entries; ++entry){
     //for(Int_t entry=0; entry < total_entries; ++entry){
       
       tree->GetEntry(entry);
   
       //eventweight = cross_section*eventweight*lumi/totaleventweight;
-      if(sample == "toponium.root"){eventweight = 1./133;}
-      if(sample == "ttbar.root"){eventweight = 1.;}
+      if(sample == "toponium.root"){weight = 1./133;}
+      if(sample == "ttbar.root"){weight = 1.;}
 
       top.SetPxPyPzE(0,0,0,0);
       antitop.SetPxPyPzE(0,0,0,0);
@@ -960,6 +970,7 @@ void run(std::string sample){
     double cosWagen = Wa_Gen.GetCosDecayAngle();
     double cosWbgen = Wb_Gen.GetCosDecayAngle();
 
+
     Meta = TT_R1.GetMass()/mTopo;
     Mtt = TT_R1.GetMass();
     Mta = Ta_R1.GetMass();
@@ -1061,44 +1072,90 @@ void run(std::string sample){
 // Δφ bin 1: [-6, -2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_1_1 = Mtt;
+    histNmttbar_1_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_1_2 = Mtt;
+    histNmttbar_1_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_1_3 = Mtt;
+    histNmttbar_1_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 
 // Δφ bin 2: [-2, 2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_2_1 = Mtt;
+    histNmttbar_2_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_2_2 = Mtt;
+    histNmttbar_2_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_2_3 = Mtt;
+    histNmttbar_2_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 
 // Δφ bin 3: [2, 6]
 // nchel bin 1: [-1, -0.4]
 if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_3_1 = Mtt;
+    histNmttbar_3_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_3_2 = Mtt;
+    histNmttbar_3_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_3_3 = Mtt;
+    histNmttbar_3_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
 }
+
+
+
+// Δφ bin 1: [-6, -2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_1_1 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_1_2 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_1_3 = (Ta_R1+Tb_R1).GetMass();
+}
+
+// Δφ bin 2: [-2, 2]
+// nchel bin 1: [-1, -0.4]
+if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_2_1 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_2_2 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_2_3 = (Ta_R1+Tb_R1).GetMass();
+}
+
+// Δφ bin 3: [2, 6]
+// nchel bin 1: [-1, -0.4]
+if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+    hist_mttbar_3_1 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 2: [-0.4, 0.4]
+if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+    hist_mttbar_3_2 = (Ta_R1+Tb_R1).GetMass();
+}
+// nchel bin 3: [0.4, 1]
+if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+    hist_mttbar_3_3 = (Ta_R1+Tb_R1).GetMass();
+}
+
+
 
     Eb_ta = Ba_R1.GetFourVector(Ta_R1).E();
     Eb_tb = Bb_R1.GetFourVector(Tb_R1).E();
@@ -1216,43 +1273,43 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
 // Δφ bin 1: [-6, -2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_1_1 = Mtt;
+    hist_mttbar_1_1 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_1_2 = Mtt;
+    hist_mttbar_1_2 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_1_3 = Mtt;
+    hist_mttbar_1_3 = (Ta_R2+Tb_R2).GetMass();
 }
 
 // Δφ bin 2: [-2, 2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_2_1 = Mtt;
+    hist_mttbar_2_1 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_2_2 = Mtt;
+    hist_mttbar_2_2 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_2_3 = Mtt;
+    hist_mttbar_2_3 = (Ta_R2+Tb_R2).GetMass();
 }
 
 // Δφ bin 3: [2, 6]
 // nchel bin 1: [-1, -0.4]
 if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_3_1 = Mtt;
+    hist_mttbar_3_1 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_3_2 = Mtt;
+    hist_mttbar_3_2 = (Ta_R2+Tb_R2).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_3_3 = Mtt;
+    hist_mttbar_3_3 = (Ta_R2+Tb_R2).GetMass();;
 }
 
 
@@ -1370,43 +1427,43 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
 // Δφ bin 1: [-6, -2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_1_1 = Mtt;
+    hist_mttbar_1_1 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_1_2 = Mtt;
+    hist_mttbar_1_2 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_1_3 = Mtt;
+    hist_mttbar_1_3 = (Ta_R3+Tb_R3).GetMass();
 }
 
 // Δφ bin 2: [-2, 2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_2_1 = Mtt;
+    hist_mttbar_2_1 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_2_2 = Mtt;
+    hist_mttbar_2_2 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_2_3 = Mtt;
+    hist_mttbar_2_3 = (Ta_R3+Tb_R3).GetMass();
 }
 
 // Δφ bin 3: [2, 6]
 // nchel bin 1: [-1, -0.4]
 if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_3_1 = Mtt;
+    hist_mttbar_3_1 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_3_2 = Mtt;
+    hist_mttbar_3_2 = (Ta_R3+Tb_R3).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_3_3 = Mtt;
+    hist_mttbar_3_3 = (Ta_R3+Tb_R3).GetMass();
 }
 
     Eb_ta = Ba_R3.GetFourVector(Ta_R3).E();
@@ -1524,43 +1581,43 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
 // Δφ bin 1: [-6, -2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_1_1 = Mtt;
+    hist_mttbar_1_1 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_1_2 = Mtt;
+    hist_mttbar_1_2 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_1_3 = Mtt;
+    hist_mttbar_1_3 = (Ta_R4+Tb_R4).GetMass();
 }
 
 // Δφ bin 2: [-2, 2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_2_1 = Mtt;
+    hist_mttbar_2_1 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_2_2 = Mtt;
+    hist_mttbar_2_2 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_2_3 = Mtt;
+    hist_mttbar_2_3 = (Ta_R4+Tb_R4).GetMass();
 }
 
 // Δφ bin 3: [2, 6]
 // nchel bin 1: [-1, -0.4]
 if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
-    hist_mttbar_3_1 = Mtt;
+    hist_mttbar_3_1 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
-    hist_mttbar_3_2 = Mtt;
+    hist_mttbar_3_2 = (Ta_R4+Tb_R4).GetMass();
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
-    hist_mttbar_3_3 = Mtt;
+    hist_mttbar_3_3 = (Ta_R4+Tb_R4).GetMass();
 }
 
     Eb_ta = Ba_R4.GetFourVector(Ta_R4).E();
@@ -1601,6 +1658,36 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
     hist_antitop_mass->Write();
     hist_dilep_mass->Write();
     hist_dilep_angle->Write();
+
+    if(sample=="toponiumS"){
+      cout << " Toponium" << endl;
+
+histNmttbar_1_1->Scale(1/133.);
+histNmttbar_1_2->Scale(1/133.);
+histNmttbar_1_3->Scale(1/133.);
+
+histNmttbar_2_1->Scale(1/133.);
+histNmttbar_2_2->Scale(1/133.);
+histNmttbar_2_3->Scale(1/133.);
+
+histNmttbar_3_1->Scale(1/133.);
+histNmttbar_3_2->Scale(1/133.);
+histNmttbar_3_3->Scale(1/133.);
+    }
+
+histNmttbar_1_1->Write();
+histNmttbar_1_2->Write();
+histNmttbar_1_3->Write();
+
+histNmttbar_2_1->Write();
+histNmttbar_2_2->Write();
+histNmttbar_2_3->Write();
+
+histNmttbar_3_1->Write();
+histNmttbar_3_2->Write();
+histNmttbar_3_3->Write();
+
+
     f2.Close();
 
     // TCanvas *c1= new TCanvas("","",800,600);

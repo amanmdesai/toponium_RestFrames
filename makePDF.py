@@ -4,7 +4,8 @@ from style import MyStyle
 ROOT.gStyle.SetOptStat(0)
 
 
-def hist():
+def hist(method="Reco1"):
+    MyStyle()
     # Open the ROOT file
     vars = {
         "mass" : "M_{t\\bar{t}} GeV",
@@ -12,19 +13,65 @@ def hist():
         "light_top" : "M_{t_{L}} GeV",
         "hist_dilep_mass" : "M_{ll'} GeV",
         "hist_dilep_angle" : "\\Delta \\phi_{ll'}",
+
+        "histNmttbar_1_1" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_1_2" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_1_3" : "M_{t\\bar{t}} GeV",
+
+        "histNmttbar_2_1" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_2_2" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_2_3" : "M_{t\\bar{t}} GeV",
+
+        "histNmttbar_3_1" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_3_2" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_3_3" : "M_{t\\bar{t}} GeV",
     }
     #vars = ["mass", "heavy_top", "light_top", "hist_dilep_mass", "hist_dilep_angle"]
     file1 = ROOT.TFile.Open("hist_toponium_reco.root")
     file2 = ROOT.TFile.Open("hist_ttbar_reco.root")
-    
+
+    if method == "Reco1":
+        recomethod = "M_{top}^{ a} = M_{top}^{ b}"
+    if method == "Reco2":
+        recomethod = "M_{W}^{ a} = M_{W}^{ b}"
+    if method == "Reco3":
+        recomethod = "min #Sigma M_{top}^{ 2}"
+    if method == "Reco4":
+        recomethod = "min #Delta M_{top}"
+
+
     for var in vars:
         h1 = file1.Get(var)
         h2 = file2.Get(var)
+
+        c = ROOT.TCanvas()
+        text1 = ""
+        text2 = ""
+
+        if "histNmttbar" in var: 
+            deltaphi_bins = [(-6, -2), (-2, 2), (2, 6)]
+            nchel_bins    = [(-1, -0.4), (-0.4, 0.4), (0.4, 1)]
+            parts = var.split("_")
+            i = int(parts[1]) - 1  # Δφ bin index (0-based)
+            j = int(parts[2]) - 1  # Nchel bin index (0-based)
+            
+            # Build text from bin ranges
+            dp_low, dp_high = deltaphi_bins[i]
+            nc_low, nc_high = nchel_bins[j]
+            text1 = f"{dp_low} < \\Delta\\Phi (tt) < {dp_high}"
+            text2 = f"{nc_low} < Nchel < {nc_high}"
+
+
         h1.SetLineColor(ROOT.kBlue)
         h2.SetLineColor(ROOT.kRed)
-        h1.SetLineWidth(2)
-        h2.SetLineWidth(2)
-        h1.SetTitle("")
+
+        h1.SetFillColor(ROOT.kBlue-1)
+        h2.SetFillColor(ROOT.kRed-1)
+
+        h1.SetFillStyle(3002)
+        h2.SetFillStyle(3002)
+
+        h1.SetTitle("Reco Method: " +recomethod)
 
         h1.GetXaxis().SetTitleFont(42)
         h1.GetXaxis().SetTitleSize(0.05)
@@ -33,28 +80,39 @@ def hist():
         h1.GetYaxis().SetTitleSize(0.05)
         h1.GetYaxis().SetTitleOffset(1.2)
 
-        print(vars[var])
         h1.GetXaxis().SetTitle(vars[var])
         h1.GetYaxis().SetTitle("Events")
+
         legend = ROOT.TLegend(0.72, 0.75, 0.9, 0.9)
-        legend.AddEntry(h1, "toponium","L")
+        legend.AddEntry(h1, "Toponium","L")
         legend.AddEntry(h2, "t\\bar{t}","L")
         legend.SetFillStyle(0)
         legend.SetBorderSize(0)
         legend.SetTextFont(42)
         legend.SetTextSize(0.05)
 
-        c = ROOT.TCanvas()
+        h1.SetMaximum(1.4*max(h1.GetMaximum(),h2.GetMaximum()))
+
         h1.Draw("hist")
         h2.Draw("histsame")
-        h1.SetMaximum(1.2*max(h1.GetMaximum(),h2.GetMaximum()))
+
         legend.Draw()
+
+        title_text1 = ROOT.TLatex()
+        title_text1.SetNDC()
+        title_text1.SetTextSize(0.05)
+        title_text1.SetTextColor(1)
+        title_text1.DrawLatex(0.25, 0.88, text1)
+        title_text1.DrawLatex(0.25, 0.82, text2)
+
         c.SetLeftMargin(0.2)
         c.SetBottomMargin(0.2)
-
-        #c.SaveAs("ttbar/"+var+"_lin.png")
+        c.Update()
         c.SaveAs("ttbar/"+var+"_lin.pdf")
+
         c.SetLogy()
+        h1.SetMaximum(10*max(h1.GetMaximum(),h2.GetMaximum()))
+
         #c.SaveAs("ttbar/"+var+"_log.png")
         c.SaveAs("ttbar/"+var+"_log.pdf")
 
@@ -98,6 +156,8 @@ def hist_compare(method="Reco1"):
         print(obj)
         hist1 = tree1.Get(obj + "_" + method+"_HistPlot")
         hist2 = tree2.Get(obj + "_" + method+"_HistPlot")
+        hist1.SetTitle("")
+        hist2.SetTitle("")
 
         hist1.SetLineColor(ROOT.kBlue)
         hist2.SetLineColor(ROOT.kRed)
@@ -189,7 +249,6 @@ def Plot(sample):
     print(extracted1d)
 
 
-
     for obj in extracted1d:
         print(obj)
         histA = tree.Get(obj + "_Reco1_HistPlot")
@@ -278,7 +337,6 @@ def Plot(sample):
         c.SetBottomMargin(0.2)
         histA.Draw("COLZ")
 
-
         title_text = ROOT.TLatex()
         title_text.SetNDC()
         title_text.SetTextSize(0.05)
@@ -287,8 +345,10 @@ def Plot(sample):
         c.SaveAs("ttbar/"+obj+"_"+sample+".pdf")
 
 
-#hist()
+hist(method="Reco1")
 
-hist_compare("Reco1")
+#hist_compare("Reco1")
+#hist_compare("Reco2")
+#hist_compare("Reco4")
 #Plot("ttbar")
 #Plot("toponium")
