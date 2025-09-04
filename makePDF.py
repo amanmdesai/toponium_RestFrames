@@ -431,7 +431,7 @@ def Ratio(method="Reco1"):
         pad1.SetLogy()
         #h_tt.SetMaximum(max(10* h_tt.GetMaximum(),10* h_topo.GetMaximum()))
         #h_tt.SetMinimum(0.1)
-        stack_mttbar.SetMaximum(800)#1.2*max(h_topo.GetMaximum(),h_tt.GetMaximum()))
+        stack_mttbar.SetMaximum(10*max(h_topo.GetMaximum(),h_tt.GetMaximum()))
         stack_mttbar.SetMinimum(1)
 
         #h_tt.GetXaxis().SetRangeUser(300.,400)
@@ -451,6 +451,7 @@ def Ratio(method="Reco1"):
         #ratio.GetXaxis().SetRangeUser(300.,400)
         ratio.SetMaximum(1.2*ratio.GetMaximum())
         ratio.SetMinimum(0)#.01*ratio.GetMinimum())
+        print(text, ratio.GetMaximum())
         ratio.GetYaxis().SetTitleSize(.09)
         ratio.GetXaxis().SetTitleSize(.09)
         ratio.GetXaxis().SetLabelSize(.09)
