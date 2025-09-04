@@ -1659,7 +1659,7 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
     hist_dilep_mass->Write();
     hist_dilep_angle->Write();
 
-    if(sample=="toponiumS"){
+    if(sample=="toponium"){
       cout << " Toponium" << endl;
 
 histNmttbar_1_1->Scale(1/133.);
