@@ -383,7 +383,7 @@ def Ratio(method="Reco1"):
 
         dp_low, dp_high = deltaphi_bins[i]
         nc_low, nc_high = nchel_bins[j]
-        text = f"{dp_low} < ΔΦ(tt) < {dp_high}, {nc_low} < Nchel < {nc_high}"
+        text = f"{dp_low} < \Delta\Phi(tt) < {dp_high}, {nc_low} < Nchel < {nc_high}"
 
         # Canvas and pads
         c1 = ROOT.TCanvas(f"c_{v}", "", 800, 800)
@@ -441,7 +441,7 @@ def Ratio(method="Reco1"):
         title_text.SetTextFont(22)
         title_text.SetTextSize(0.05)
         title_text.DrawLatex(0.2, 0.88, f"Reco method: {recomethod}")
-        title_text.DrawLatex(0.2, 0.83, text)
+        title_text.DrawLatex(0.2, 0.81, text)
 
         # Ratio pad
         pad2.cd()
