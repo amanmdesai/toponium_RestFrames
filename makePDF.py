@@ -348,123 +348,121 @@ def Plot(sample):
 
 
 def Ratio(method="Reco1"):
-    MyStyle()
+    MyStyle()  # your custom style
 
     variables = {
-        "histNmttbar_1_1" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_1_2" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_1_3" : "M_{t\\bar{t}} GeV",
-
-        "histNmttbar_2_1" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_2_2" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_2_3" : "M_{t\\bar{t}} GeV",
-
-        "histNmttbar_3_1" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_3_2" : "M_{t\\bar{t}} GeV",
-        "histNmttbar_3_3" : "M_{t\\bar{t}} GeV",
+        "histNmttbar_1_1": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_1_2": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_1_3": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_2_1": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_2_2": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_2_3": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_3_1": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_3_2": "M_{t\\bar{t}} [GeV]",
+        "histNmttbar_3_3": "M_{t\\bar{t}} [GeV]",
     }
-
 
     f1 = ROOT.TFile.Open("hist_toponium_reco.root")
     f2 = ROOT.TFile.Open("hist_ttbar_reco.root")
 
-    if method == "Reco1":
-        recomethod = "M_{top}^{ a} = M_{top}^{ b}"
-    if method == "Reco2":
-        recomethod = "M_{W}^{ a} = M_{W}^{ b}"
-    if method == "Reco3":
-        recomethod = "min #Sigma M_{top}^{ 2}"
-    if method == "Reco4":
-        recomethod = "min #Delta M_{top}"
+    recomethod_dict = {
+        "Reco1": "M_{top}^{ a} = M_{top}^{ b}",
+        "Reco2": "M_{W}^{ a} = M_{W}^{ b}",
+        "Reco3": "min #Sigma M_{top}^{ 2}",
+        "Reco4": "min #Delta M_{top}"
+    }
+    recomethod = recomethod_dict.get(method, "Reco method unknown")
+
+    deltaphi_bins = [(-6, -2), (-2, 2), (2, 6)]
+    nchel_bins = [(-1, -0.4), (-0.4, 0.4), (0.4, 1)]
+
     for v in variables:
-
-
-        deltaphi_bins = [(-6, -2), (-2, 2), (2, 6)]
-        nchel_bins    = [(-1, -0.4), (-0.4, 0.4), (0.4, 1)]
         parts = v.split("_")
-        i = int(parts[1]) - 1  # Δφ bin index (0-based)
-        j = int(parts[2]) - 1  # Nchel bin index (0-based)
-        
-        # Build text from bin ranges
+        i = int(parts[1]) - 1  # Δφ bin index
+        j = int(parts[2]) - 1  # Nchel bin index
+
         dp_low, dp_high = deltaphi_bins[i]
         nc_low, nc_high = nchel_bins[j]
-        text = f"{dp_low} < \\Delta\\Phi (tt) < {dp_high}, {nc_low} < Nchel < {nc_high}"
+        text = f"{dp_low} < ΔΦ(tt) < {dp_high}, {nc_low} < Nchel < {nc_high}"
 
-        c1 = ROOT.TCanvas()
-        legend = ROOT.TLegend(0.72, 0.75, 0.9, 0.9)
-        legend.SetFillStyle(0)
-        legend.SetBorderSize(0)
-        h_topo = (f1.Get(v))
-        h_tt = (f2.Get(v))
+        # Canvas and pads
+        c1 = ROOT.TCanvas(f"c_{v}", "", 800, 800)
+        pad1 = ROOT.TPad("pad1", "", 0, 0.35, 1, 1)
+        pad2 = ROOT.TPad("pad2", "", 0, 0, 1, 0.35)
+        pad1.SetBottomMargin(0.02)
+        pad2.SetTopMargin(0.02)
+        pad2.SetBottomMargin(0.35)
+        pad1.Draw()
+        pad2.Draw()
+
+        # Histograms
+        h_topo = f1.Get(v)
+        h_tt = f2.Get(v)
         h_tt.Rebin(4)
         h_topo.Rebin(4)
-        #h_tt.Rebin(rebin_fact)
-        #h_topo.Rebin(rebin_fact)
-        stack_mttbar = ROOT.THStack()
-
-        stack_mttbar.Add(h_tt)
-        stack_mttbar.Add(h_topo)
-
-        ratio = h_topo.Clone()
-        
-
-        h_tt.GetXaxis().SetTitle(variables[v])
-        h_tt.GetYaxis().SetTitle("Events")#"Events (Weighted)")
         h_tt.SetLineColor(ROOT.kBlue)
         h_topo.SetLineColor(ROOT.kRed)
         h_tt.SetLineWidth(2)
         h_topo.SetLineWidth(2)
 
-        legend.AddEntry(h_topo, "toponium","L")
-        legend.AddEntry(h_tt, "t\\bar{t}","L")
+        # Stack
+        stack_mttbar = ROOT.THStack("stack", "")
+        stack_mttbar.Add(h_tt)
+        stack_mttbar.Add(h_topo)
 
-        legend.SetTextSize(.05)
-
-        title_text = ROOT.TLatex()
-        title_text.SetNDC()
-        title_text.SetTextSize(0.05)
-        title_text.SetTextFont(22)
-
-        pad1 = ROOT.TPad("pad1","pad1",0,0.35,1,.93)
-        pad1.Draw()
+        # Draw stack
         pad1.cd()
         pad1.SetLogy()
-        #h_tt.SetMaximum(max(10* h_tt.GetMaximum(),10* h_topo.GetMaximum()))
-        #h_tt.SetMinimum(0.1)
-        stack_mttbar.SetMaximum(10*max(h_topo.GetMaximum(),h_tt.GetMaximum()))
+        stack_mttbar.SetMaximum(10 * max(h_topo.GetMaximum(), h_tt.GetMaximum()))
         stack_mttbar.SetMinimum(1)
-
-        #h_tt.GetXaxis().SetRangeUser(300.,400)
-        #h_topo.GetXaxis().SetRangeUser(300.,400)
-        #h_tt.Draw("hist")
-        #h_topo.Draw("histsame")
         stack_mttbar.Draw("hist")
-        title_text.DrawLatex(0.2, 0.84, text)
-        title_text.DrawLatex(0.2, 0.9, "Reco method: "+ recomethod)
-        pad1.Update()
+        stack_mttbar.GetXaxis().SetTitle(variables[v])
+        stack_mttbar.GetYaxis().SetTitle("Events")
+        stack_mttbar.GetXaxis().SetTitleFont(42)
+        stack_mttbar.GetYaxis().SetTitleFont(42)
+        stack_mttbar.GetXaxis().SetTitleSize(0.06)   # bigger font
+        stack_mttbar.GetYaxis().SetTitleSize(0.06)
+        stack_mttbar.GetXaxis().SetLabelSize(0.05)
+        stack_mttbar.GetYaxis().SetLabelSize(0.05)
+
+        # Legend
+        legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+        legend.SetFillStyle(0)
+        legend.SetBorderSize(0)
+        legend.SetTextFont(42)
+        legend.SetTextSize(0.05)
+        legend.AddEntry(h_topo, "Toponium", "l")
+        legend.AddEntry(h_tt, "t#bar{t}", "l")
         legend.Draw()
-        c1.cd()
-        pad2 = ROOT.TPad("pad2","pad2",0,0.01,1,.35)
-        pad2.Draw()
+
+        # TLatex titles
+        title_text = ROOT.TLatex()
+        title_text.SetNDC()
+        title_text.SetTextFont(22)
+        title_text.SetTextSize(0.05)
+        title_text.DrawLatex(0.2, 0.88, f"Reco method: {recomethod}")
+        title_text.DrawLatex(0.2, 0.83, text)
+
+        # Ratio pad
         pad2.cd()
-        ratio.Divide(h_tt) #nlo/lo
-        #ratio.GetXaxis().SetRangeUser(300.,400)
-        ratio.SetMaximum(1.2*ratio.GetMaximum())
-        ratio.SetMinimum(0)#.01*ratio.GetMinimum())
-        print(text, ratio.GetMaximum())
-        ratio.GetYaxis().SetTitleSize(.09)
-        ratio.GetXaxis().SetTitleSize(.09)
-        ratio.GetXaxis().SetLabelSize(.09)
-        ratio.GetYaxis().SetLabelSize(.09)
-        ratio.GetYaxis().SetTitleOffset(.5)
-        ratio.GetYaxis().SetTitleFont(22)
-        ratio.SetNdivisions(510,"x")
-        ratio.SetNdivisions(505,"y")
-        ratio.GetYaxis().SetTitle(r"Ratio \frac{Toponium}{t\bar{t}}")
-        ratio.Draw()
+        ratio = h_topo.Clone()
+        ratio.Divide(h_tt)
+        ratio.SetMaximum(1.2 * ratio.GetMaximum())
+        ratio.SetMinimum(0)
+        ratio.GetYaxis().SetTitle("Toponium / t#bar{t}")
+        ratio.GetYaxis().SetTitleSize(0.09)
+        ratio.GetYaxis().SetLabelSize(0.09)
+        ratio.GetYaxis().SetTitleOffset(0.7)
+        ratio.GetYaxis().SetTitleFont(42)
+        ratio.GetXaxis().SetTitle(variables[v])
+        ratio.GetXaxis().SetTitleSize(0.09)
+        ratio.GetXaxis().SetLabelSize(0.09)
+        ratio.SetNdivisions(510, "x")
+        ratio.SetNdivisions(505, "y")
+        ratio.Draw("ep")
+
         c1.Update()
-        c1.SaveAs("ratio/" + v+".pdf")
-        i = i + 1
+        c1.SaveAs(f"ratio/{v}.pdf")
 
 
 
