@@ -41,7 +41,7 @@ ax.set_yticklabels(ylabels, fontsize=28)
 ax.set_xlabel(r"$\Delta\phi(t\bar{t})$", fontsize=32)
 ax.set_ylabel(r"$N_{\rm chel}$", fontsize=32)
 
-ax.set_title(r"$M_{\rm top}^{a} = M_{\rm top}^{b}$", fontsize=32, pad=20)
+ax.set_title(r"RestFrames $M_{\rm top}^{a} = M_{\rm top}^{b}$", fontsize=32, pad=20)
 
 
 # Create colorbar with EXACT same height as plot
