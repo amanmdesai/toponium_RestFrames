@@ -404,7 +404,20 @@ def Ratio(method="Reco1"):
         h_topo.SetLineColor(ROOT.kRed)
         h_tt.SetLineWidth(2)
         h_topo.SetLineWidth(2)
+        
+        h_topo_mass = h_topo.Clone()
+        h_tt_mass = h_tt.Clone()
 
+        bin_low  = h_topo_mass.GetXaxis().FindBin(0)
+        bin_high = h_topo_mass.GetXaxis().FindBin(1000)
+
+        # Integrals in that bin range
+        I_topo = h_topo_mass.Integral(bin_low, bin_high)
+        I_tt   = h_tt_mass.Integral(bin_low, bin_high)
+
+        # Your calculation
+        print(text, I_topo / ROOT.TMath.Sqrt(I_topo + I_tt))
+        
         # Stack
         stack_mttbar = ROOT.THStack("stack", "")
         stack_mttbar.Add(h_tt)
