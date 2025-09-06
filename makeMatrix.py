@@ -8,17 +8,12 @@ plt.rcParams['axes.titlesize'] = 20
 plt.rcParams['axes.titleweight'] = 'bold'
 
 # Data
-data = np.array([
+maximum = np.array([
     [0.026, 0.042, 0.033],
     [0.044, 0.102, 0.042],
     [0.054, 0.165, 0.054]
 ])
 
-data = np.array([
-    [1.34, 1.06, 1.35],
-    [2.27,  2.71,  2.25],
-    [2.38,  4.38,  2.36]
-])
 
 data = np.array([
     [0.6599883803020188, 0.6530838964932151, 0.6534428660764171],
@@ -45,6 +40,9 @@ ax.set_yticklabels(ylabels, fontsize=28)
 
 ax.set_xlabel(r"$\Delta\phi(t\bar{t})$", fontsize=32)
 ax.set_ylabel(r"$N_{\rm chel}$", fontsize=32)
+
+ax.set_title(r"$M_{\rm top}^{a} = M_{\rm top}^{b}$", fontsize=32, pad=20)
+
 
 # Create colorbar with EXACT same height as plot
 divider = make_axes_locatable(ax)
