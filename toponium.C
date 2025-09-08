@@ -787,15 +787,19 @@ void run(std::string sample){
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
     TVector3 la_ta, lb_tb, tb_vec;
-    Float_t weight; 
+    Double_t weight, cross_section; 
+
     for(Int_t entry=0; entry < total_entries; ++entry){
     //for(Int_t entry=0; entry < total_entries; ++entry){
       
       tree->GetEntry(entry);
-  
-      //eventweight = cross_section*eventweight*lumi/totaleventweight;
-      if(sample == "toponium.root"){weight = 1./133;}
-      if(sample == "ttbar.root"){weight = 1.;}
+
+      if(sample == "toponium"){cross_section = 0.2767;}
+      if(sample == "ttbar"){cross_section = 36.9;}
+      weight = cross_section*lumi*1000/total_entries;
+
+      //if(sample == "toponium"){weight = 1./133;}
+      //if(sample == "ttbar"){weight = 1.;}
 
       top.SetPxPyPzE(0,0,0,0);
       antitop.SetPxPyPzE(0,0,0,0);
@@ -1072,43 +1076,43 @@ void run(std::string sample){
 // Δφ bin 1: [-6, -2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
-    histNmttbar_1_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_1_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
-    histNmttbar_1_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_1_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
-    histNmttbar_1_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_1_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 
 // Δφ bin 2: [-2, 2]
 // nchel bin 1: [-1, -0.4]
 if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
-    histNmttbar_2_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_2_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
-    histNmttbar_2_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_2_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
-    histNmttbar_2_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_2_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 
 // Δφ bin 3: [2, 6]
 // nchel bin 1: [-1, -0.4]
 if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
-    histNmttbar_3_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_3_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 2: [-0.4, 0.4]
 if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
-    histNmttbar_3_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_3_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 // nchel bin 3: [0.4, 1]
 if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
-    histNmttbar_3_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M());
+    histNmttbar_3_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 
 
@@ -1659,7 +1663,7 @@ if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
     hist_dilep_mass->Write();
     hist_dilep_angle->Write();
 
-    if(sample=="toponium"){
+    if(sample=="NOtoponium"){
       cout << " Toponium" << endl;
 
 histNmttbar_1_1->Scale(1/133.);
@@ -1705,7 +1709,7 @@ histNmttbar_3_3->Write();
   }
 
 # ifndef __CINT__ // main function for stand-alone compilation
-int example_N_Wlnu_toponium(){
+int toponium(){
   run("toponium");
   run("ttbar");
   return 0;
