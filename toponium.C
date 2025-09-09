@@ -1073,47 +1073,92 @@ void run(std::string sample){
     leptopa.SetXYZ(lep_boosteda.Px(),lep_boosteda.Py(),lep_boosteda.Pz());
     leptopb.SetXYZ(lep_boostedb.Px(),lep_boostedb.Py(),-lep_boostedb.Pz());
 
-// Δφ bin 1: [-6, -2]
-// nchel bin 1: [-1, -0.4]
-if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+// chan bin 1: [-1, -1/3]
+// chel bin 1: [-1, -1/3]
+if (chan > -1. && chan < -1./3. && chel > -1. && chel < -1./3.) {
     histNmttbar_1_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 2: [-0.4, 0.4]
-if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+// chel bin 2: [-1/3, 1/3]
+if (chan > -1. && chan < -1./3. && chel > -1./3. && chel < 1./3.) {
     histNmttbar_1_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 3: [0.4, 1]
-if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+// chel bin 3: [1/3, 1]
+if (chan > -1. && chan < -1./3. && chel > 1./3. && chel < 1.) {
     histNmttbar_1_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 
-// Δφ bin 2: [-2, 2]
-// nchel bin 1: [-1, -0.4]
-if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+// chan bin 2: [-1/3, 1/3]
+// chel bin 1: [-1, -1/3]
+if (chan > -1./3. && chan < 1./3. && chel > -1. && chel < -1./3.) {
     histNmttbar_2_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 2: [-0.4, 0.4]
-if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+// chel bin 2: [-1/3, 1/3]
+if (chan > -1./3. && chan < 1./3. && chel > -1./3. && chel < 1./3.) {
     histNmttbar_2_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 3: [0.4, 1]
-if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+// chel bin 3: [1/3, 1]
+if (chan > -1./3. && chan < 1./3. && chel > 1./3. && chel < 1.) {
     histNmttbar_2_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
 
-// Δφ bin 3: [2, 6]
-// nchel bin 1: [-1, -0.4]
-if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+// chan bin 3: [1/3, 1]
+// chel bin 1: [-1, -1/3]
+if (chan > 1./3. && chan < 1. && chel > -1. && chel < -1./3.) {
     histNmttbar_3_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 2: [-0.4, 0.4]
-if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+// chel bin 2: [-1/3, 1/3]
+if (chan > 1./3. && chan < 1. && chel > -1./3. && chel < 1./3.) {
     histNmttbar_3_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
-// nchel bin 3: [0.4, 1]
-if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+// chel bin 3: [1/3, 1]
+if (chan > 1./3. && chan < 1. && chel > 1./3. && chel < 1.) {
     histNmttbar_3_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
 }
+
+
+
+
+// // Δφ bin 1: [-6, -2]
+// // nchel bin 1: [-1, -0.4]
+// if (phitt > -6. && phitt < -2. && nchel > -1. && nchel < -0.4) {
+//     histNmttbar_1_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 2: [-0.4, 0.4]
+// if (phitt > -6. && phitt < -2. && nchel > -0.4 && nchel < 0.4) {
+//     histNmttbar_1_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 3: [0.4, 1]
+// if (phitt > -6. && phitt < -2. && nchel > 0.4 && nchel < 1.) {
+//     histNmttbar_1_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+//
+// // Δφ bin 2: [-2, 2]
+// // nchel bin 1: [-1, -0.4]
+// if (phitt > -2. && phitt < 2. && nchel > -1. && nchel < -0.4) {
+//     histNmttbar_2_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 2: [-0.4, 0.4]
+// if (phitt > -2. && phitt < 2. && nchel > -0.4 && nchel < 0.4) {
+//     histNmttbar_2_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 3: [0.4, 1]
+// if (phitt > -2. && phitt < 2. && nchel > 0.4 && nchel < 1.) {
+//     histNmttbar_2_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+
+// // Δφ bin 3: [2, 6]
+// // nchel bin 1: [-1, -0.4]
+// if (phitt > 2. && phitt < 6. && nchel > -1. && nchel < -0.4) {
+//     histNmttbar_3_1->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 2: [-0.4, 0.4]
+// if (phitt > 2. && phitt < 6. && nchel > -0.4 && nchel < 0.4) {
+//     histNmttbar_3_2->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
+// // nchel bin 3: [0.4, 1]
+// if (phitt > 2. && phitt < 6. && nchel > 0.4 && nchel < 1.) {
+//     histNmttbar_3_3->Fill((Ta_R1.GetFourVector()+Tb_R1.GetFourVector()).M(), weight);
+// }
 
 
 
